@@ -369,10 +369,6 @@ input[type=email]#email{max-width:400px}
               <input type="text" id="leaderKanji" placeholder="例：山田 太郎">
               <div class="err-msg" id="leaderKanji-err"><i class="fas fa-exclamation-circle"></i> 氏名を入力してください</div>
             </div>
-            <div class="form-group">
-              <label>所属教室</label>
-              <input type="text" id="leaderSchool" placeholder="例：○○ダンス教室">
-            </div>
           </div>
           <!-- パートナー列 -->
           <div>
@@ -399,9 +395,18 @@ input[type=email]#email{max-width:400px}
               <input type="text" id="partnerKanji" placeholder="例：山田 花子">
               <div class="err-msg" id="partnerKanji-err"><i class="fas fa-exclamation-circle"></i> 氏名を入力してください</div>
             </div>
-            <div class="form-group">
-              <label>所属教室</label>
-              <input type="text" id="partnerSchool" placeholder="例：○○ダンス教室">
+          </div>
+        </div>
+        <!-- 共通：所属教室（1行）＋ 支局（中央・1/3幅）-->
+        <div style="margin-top:18px;border-top:1px solid var(--bg);padding-top:16px">
+          <div class="form-group">
+            <label><i class="fas fa-school" style="color:var(--gold);margin-right:5px"></i>所属教室</label>
+            <input type="text" id="school" placeholder="例：○○ダンス教室">
+          </div>
+          <div style="display:flex;justify-content:center;margin-top:10px">
+            <div class="form-group" style="width:33%;min-width:130px;text-align:center">
+              <label style="display:block;text-align:center"><i class="fas fa-map-pin" style="color:var(--gold);margin-right:4px"></i>支局</label>
+              <input type="text" id="branch" placeholder="例：愛知" style="text-align:center;max-width:100%">
             </div>
           </div>
         </div>
@@ -555,11 +560,11 @@ input[type=email]#email{max-width:400px}
           <tr><th>リーダー登録番号</th><td id="c-regLeader"></td></tr>
           <tr><th>リーダー（ふりがな）</th><td id="c-leaderKana"></td></tr>
           <tr><th>リーダー（氏名）</th><td id="c-leaderKanji"></td></tr>
-          <tr><th>リーダー所属教室</th><td id="c-leaderSchool"></td></tr>
           <tr><th>パートナー登録番号</th><td id="c-regPartner"></td></tr>
           <tr><th>パートナー（ふりがな）</th><td id="c-partnerKana"></td></tr>
           <tr><th>パートナー（氏名）</th><td id="c-partnerKanji"></td></tr>
-          <tr><th>パートナー所属教室</th><td id="c-partnerSchool"></td></tr>
+          <tr><th>所属教室</th><td id="c-school"></td></tr>
+          <tr><th>支局</th><td id="c-branch"></td></tr>
           <tr><th>住所</th><td id="c-address"></td></tr>
           <tr><th>携帯電話番号</th><td id="c-phone"></td></tr>
           <tr><th>メールアドレス</th><td id="c-email"></td></tr>
@@ -605,134 +610,60 @@ input[type=email]#email{max-width:400px}
 <script>
 emailjs.init('3A228NVyE5NVMxev8');
 
-// ===== 選手データベース =====
+// ===== 選手データベース（登録番号→全情報）=====
+// lKanji:リーダー漢字 / lKana:リーダーかな / pKanji:パートナー漢字 / pKana:パートナーかな
+// school:所属教室 / branch:支局
 const playerDB = {
-  leaders: {
-    '3-529':{kanji:'鮫口伸一郎',kana:'サメグチ シンイチロウ'},
-    '3-566':{kanji:'小野 孝明',kana:'オノ コウメイ'},
-    '3-569':{kanji:'田原 健二',kana:'タハラ ケンジ'},
-    '3-624':{kanji:'丁野 真一',kana:'チョウノ シンイチ'},
-    '3-659':{kanji:'内藤 達矢',kana:'ナイトウ タツヤ'},
-    '3-671':{kanji:'西尾 浩一',kana:'ニシオ コウイチ'},
-    '3-734':{kanji:'永田 薫',kana:'ナガタ カオル'},
-    '3-740':{kanji:'亀川 隆史',kana:'カメガワ タカフミ'},
-    '3-749':{kanji:'松岡 佑紀',kana:'マツオカ ユウキ'},
-    '3-762':{kanji:'斉藤 達哉',kana:'サイトウ タツヤ'},
-    '3-764':{kanji:'田中 孝康',kana:'タナカ ノリヤス'},
-    '3-796':{kanji:'原 辰瑠',kana:'ハラ タツル'},
-    '3-813':{kanji:'畠山 貴弘',kana:'ハタケヤマ タカヒロ'},
-    '3-827':{kanji:'箱田翔次郎',kana:'ハコダ ショウジロウ'},
-    '3-830':{kanji:'奥野 貴',kana:'オクノ タカヤ'},
-    '3-831':{kanji:'瀬内 英幸',kana:'セウチ ヒデユキ'},
-    '3-833':{kanji:'寺門 駿',kana:'テラカド シュン'},
-    '3-841':{kanji:'森安 略夫',kana:'モリヤス ノリオ'},
-    '3-844':{kanji:'浜崎 裕章',kana:'ハマサキ ヒロフミ'},
-    '3-854':{kanji:'宮原明希光',kana:'ミヤハラ アキミツ'},
-    '3-861':{kanji:'滝澤 聖也',kana:'タキザワ セイヤ'},
-    '3-862':{kanji:'石川 敬之',kana:'イシカワ ノリユキ'},
-    '3-869':{kanji:'田中慎一朗',kana:'タナカ シンイチロウ'},
-    '3-870':{kanji:'東海林祐介',kana:'トウカイリン ユウスケ'},
-    '3-871':{kanji:'工藤 正俊',kana:'クドウ マサトシ'},
-    '3-873':{kanji:'中野 颯斗',kana:'ナカノ ハヤト'},
-    '4-120':{kanji:'佐野 智一',kana:'サノ トモカズ'},
-    '4-150':{kanji:'阪野 清人',kana:'バンノ キヨト'},
-    '4-193':{kanji:'柴田 真希',kana:'シバタ マサキ'},
-    '4-206':{kanji:'伊藤 圭一',kana:'イトウ ケイイチ'},
-    '4-223':{kanji:'安藤 裕一',kana:'アンドウ ユウイチ'},
-    '4-233':{kanji:'新海 晋也',kana:'シンカイ シンヤ'},
-    '4-240':{kanji:'野田 幹也',kana:'ノダ ミキヤ'},
-    '4-258':{kanji:'中野 雅章',kana:'ナカノ マサアキ'},
-    '4-260':{kanji:'村上 知哉',kana:'ムラカミ トモヤ'},
-    '4-262':{kanji:'勝川 佳和',kana:'カツカワ ヨシカズ'},
-    '4-270':{kanji:'竹内 大祐',kana:'タケウチ ダイスケ'},
-    '4-273':{kanji:'勝野 出',kana:'カツノ イヅル'},
-    '4-276':{kanji:'村澤 俊也',kana:'ムラサワ シュンヤ'},
-    '4-277':{kanji:'金原 亮司',kana:'キンパラ リョウジ'},
-    '4-279':{kanji:'柴山 和樹',kana:'シバヤマ カズキ'},
-    '4-283':{kanji:'新美 一輝',kana:'ニイミ カズキ'},
-    '4-286':{kanji:'岡 俊宏',kana:'オカ トシヒロ'},
-    '4-289':{kanji:'松永 卓也',kana:'マツナガ タクヤ'},
-    '4-290':{kanji:'太田 雅士',kana:'オオタ マサシ'},
-    '4-291':{kanji:'岩本 憲幸',kana:'イワモト ノリユキ'},
-    '4-292':{kanji:'小森 康裕',kana:'コモリ ヤスヒロ'},
-    '4-297':{kanji:'森川 真',kana:'モリカワ マコト'},
-    '4-300':{kanji:'森田 貴久',kana:'モリタ タカヒサ'},
-    '4-302':{kanji:'岩田 健司',kana:'イワタ ケンジ'},
-    '4-303':{kanji:'山﨑 雅則',kana:'ヤマザキ マサノリ'},
-    '4-305':{kanji:'楠本 和嵩',kana:'クスモト カズタカ'},
-    '4-306':{kanji:'平柳 諒悟',kana:'ヒラヤナギ リョウゴ'},
-    '5-300':{kanji:'伊藤 大輔',kana:'イトウ ダイスケ'},
-    '5-394':{kanji:'中田 裕也',kana:'ナカタ ユウヤ'},
-    '5-396':{kanji:'下田 陸斗',kana:'シモダ リクト'},
-    '5-397':{kanji:'渡辺 幸司',kana:'ワタナベ コウジ'},
-    '6-100':{kanji:'中嶋 康人',kana:'ナカシマ ヤスト'},
-    '6-148':{kanji:'平﨑 誠',kana:'ヒラサキ マコト'},
-    '6-228':{kanji:'岸本 真臣',kana:'キシモト マサオミ'},
-    '6-255':{kanji:'高野 智弥',kana:'タカノ トモヤ'}
-  },
-  partners: {
-    '3-529':{kanji:'阿部里香子',kana:'アベ リカコ'},
-    '3-566':{kanji:'小野恵美織',kana:'オノ エミリ'},
-    '3-569':{kanji:'上脇友季湖',kana:'カミワキ ユキコ'},
-    '3-624':{kanji:'井上 望',kana:'イノウエ ノゾミ'},
-    '3-659':{kanji:'手島 紫乃',kana:'テシマ シノ'},
-    '3-671':{kanji:'下田 藍',kana:'シモダ アイ'},
-    '3-734':{kanji:'飯野さやか',kana:'イイノ サヤカ'},
-    '3-740':{kanji:'新保 伊央',kana:'シンポ イオ'},
-    '3-749':{kanji:'齊藤ひかる',kana:'サイトウ ヒカル'},
-    '3-762':{kanji:'八木恵里香',kana:'ヤギ エリカ'},
-    '3-764':{kanji:'加藤美智子',kana:'カトウ ミチコ'},
-    '3-796':{kanji:'井上 愛香',kana:'イノウエ アイカ'},
-    '3-813':{kanji:'高橋 美樹',kana:'タカハシ ミキ'},
-    '3-827':{kanji:'田原麻吏可',kana:'タハラ マリカ'},
-    '3-830':{kanji:'石井 沙耶',kana:'イシイ サヤ'},
-    '3-831':{kanji:'斎木 智子',kana:'サイキ トモコ'},
-    '3-833':{kanji:'寺門 彩香',kana:'テラカド アヤカ'},
-    '3-841':{kanji:'竹澤 陽子',kana:'タケザワ ヨウコ'},
-    '3-844':{kanji:'浅井 美薫',kana:'アサイ ミオ'},
-    '3-854':{kanji:'松下 梨沙',kana:'マツシタ リサ'},
-    '3-861':{kanji:'前田 馨',kana:'マエダ カオル'},
-    '3-862':{kanji:'奥 恵弥',kana:'オク アヤ'},
-    '3-869':{kanji:'田中 あや',kana:'タナカ アヤ'},
-    '3-870':{kanji:'立花 悠',kana:'タチバナ ハルカ'},
-    '3-871':{kanji:'李 夢希',kana:'リ ムキ'},
-    '3-873':{kanji:'DAGA',kana:'ダガ'},
-    '4-120':{kanji:'佐野 和美',kana:'サノ カズミ'},
-    '4-150':{kanji:'阪野 綾',kana:'バンノ アヤ'},
-    '4-193':{kanji:'柴田 綾子',kana:'シバタ アヤコ'},
-    '4-206':{kanji:'廣瀬 久美',kana:'ヒロセ クミ'},
-    '4-223':{kanji:'河内 芳江',kana:'カワチ ヨシエ'},
-    '4-233':{kanji:'新海きみ子',kana:'シンカイ キミコ'},
-    '4-240':{kanji:'広瀬 真名',kana:'ヒロセ マナ'},
-    '4-258':{kanji:'中野由美恵',kana:'ナカノ ユミエ'},
-    '4-260':{kanji:'村田 佳澄',kana:'ムラタ カスミ'},
-    '4-262':{kanji:'清水佳奈子',kana:'シミズ カナコ'},
-    '4-270':{kanji:'竹内 桃子',kana:'タケウチ モモコ'},
-    '4-273':{kanji:'浅海 愛',kana:'アサウミ アイ'},
-    '4-276':{kanji:'鈴木 伶奈',kana:'スズキ レナ'},
-    '4-277':{kanji:'永原 由貴',kana:'ナガハラ ユキ'},
-    '4-279':{kanji:'平岩 英里',kana:'ヒライワ エリ'},
-    '4-283':{kanji:'山口ひかり',kana:'ヤナグチ ヒカリ'},
-    '4-286':{kanji:'岡 瑞紀',kana:'オカ ミズキ'},
-    '4-289':{kanji:'松永由莉枝',kana:'マツナガ ユリエ'},
-    '4-290':{kanji:'川澄 清香',kana:'カワスミ サヤカ'},
-    '4-291':{kanji:'稲垣 はる美',kana:'イナガキ ハルミ'},
-    '4-292':{kanji:'滝川 和美',kana:'タキカワ カズミ'},
-    '4-297':{kanji:'倉岡 美生',kana:'クラオカ ミウ'},
-    '4-300':{kanji:'木全 志穂',kana:'キマタ シホ'},
-    '4-302':{kanji:'寺島 裕希',kana:'テラシマ ユウキ'},
-    '4-303':{kanji:'河内 知子',kana:'カワチ トモコ'},
-    '4-305':{kanji:'宇瀬 薫',kana:'ウセ カオル'},
-    '4-306':{kanji:'佐田みづほ',kana:'サダ ミヅホ'},
-    '5-300':{kanji:'伴 まゆみ',kana:'バン マユミ'},
-    '5-394':{kanji:'佐々木真那',kana:'ササキ マナ'},
-    '5-396':{kanji:'板谷 明穂',kana:'イタタニ アキホ'},
-    '5-397':{kanji:'市川 由佳',kana:'イチカワ ユカ'},
-    '6-100':{kanji:'中嶋 藍香',kana:'ナカシマ アイカ'},
-    '6-148':{kanji:'切手利江子',kana:'キッテ リエコ'},
-    '6-228':{kanji:'大津谷陽子',kana:'オオツタニ ヨウコ'},
-    '6-255':{kanji:'加藤 七海',kana:'カトウ ナナミ'}
-  }
+  '3-529':{lKanji:'鮫口伸一郎',lKana:'サメグチ シンイチロウ',pKanji:'阿部里香子',pKana:'アベ リカコ',school:'鮫口ダンス教室',branch:'東京'},
+  '3-566':{lKanji:'小野 孝明',lKana:'オノ コウメイ',pKanji:'小野恵美織',pKana:'オノ エミリ',school:'小野孝明ダンススクール',branch:'神奈川'},
+  '3-569':{lKanji:'田原 健二',lKana:'タハラ ケンジ',pKanji:'上脇友季湖',pKana:'カミワキ ユキコ',school:'タハラダンススタジオ/ダンス大塚会館',branch:'千葉'},
+  '3-734':{lKanji:'永田 薫',lKana:'ナガタ カオル',pKanji:'飯野さやか',pKana:'イイノ サヤカ',school:'小林ダンススクール',branch:'東京'},
+  '3-749':{lKanji:'松岡 佑紀',lKana:'マツオカ ユウキ',pKanji:'齊藤ひかる',pKana:'サイトウ ヒカル',school:'MATSUOKA DANCE PRODUCTION',branch:'神奈川'},
+  '3-762':{lKanji:'斉藤 達哉',lKana:'サイトウ タツヤ',pKanji:'八木恵里香',pKana:'ヤギ エリカ',school:'武田ダンススクール',branch:'東京'},
+  '3-796':{lKanji:'原 辰瑠',lKana:'ハラ タツル',pKanji:'井上 愛香',pKana:'イノウエ アイカ',school:'タハラダンススタジオ/Y&Mダンスラボ.',branch:'千葉'},
+  '3-813':{lKanji:'畠山 貴弘',lKana:'ハタケヤマ タカヒロ',pKanji:'高橋 美樹',pKana:'タカハシ ミキ',school:'小浜ダンスプラザ',branch:'神奈川'},
+  '3-833':{lKanji:'寺門 駿',lKana:'テラカド シュン',pKanji:'寺門 彩香',pKana:'テラカド アヤカ',school:'KM Dance Arts',branch:'東京'},
+  '3-841':{lKanji:'森安 略夫',lKana:'モリヤス ノリオ',pKanji:'竹澤 陽子',pKana:'タケザワ ヨウコ',school:'ASダンススタジオ',branch:'東京'},
+  '3-844':{lKanji:'浜崎 裕章',lKana:'ハマサキ ヒロフミ',pKanji:'川澄 清香',pKana:'カワスミ サヤカ',school:'チョイス&双葉会ダンススタジオ/ニシダダンススタジオ',branch:'東京'},
+  '3-854':{lKanji:'宮原明希光',lKana:'ミヤハラ アキミツ',pKanji:'松下 梨沙',pKana:'マツシタ リサ',school:'Studio Li',branch:'東京'},
+  '3-861':{lKanji:'滝澤 聖也',lKana:'タキザワ セイヤ',pKanji:'前田 馨',pKana:'マエダ カオル',school:'ダンススタジオコネクト橘/TDSサード・ダンススクール',branch:'東京'},
+  '3-862':{lKanji:'石川 敬之',lKana:'イシカワ ノリユキ',pKanji:'奥 恵弥',pKana:'オク アヤ',school:'チョイス&双葉会ダンススタジオ',branch:'東京'},
+  '3-869':{lKanji:'田中慎一朗',lKana:'タナカ シンイチロウ',pKanji:'田中 あや',pKana:'タナカ アヤ',school:'Fontana Dance Studio/ダンススタジオコネクト橘',branch:'東京'},
+  '3-870':{lKanji:'東海林祐介',lKana:'トウカイリン ユウスケ',pKanji:'立花 悠',pKana:'タチバナ ハルカ',school:'Tomorrow  Dance Club',branch:'東京'},
+  '3-871':{lKanji:'工藤 正俊',lKana:'クドウ マサトシ',pKanji:'李 夢希',pKana:'リ ムキ',school:'KM Dance Arts',branch:'東京'},
+  '3-873':{lKanji:'中野 颯斗',lKana:'ナカノ ハヤト',pKanji:'DAGA',pKana:'ダガ',school:'チョイス&双葉会ダンススタジオ',branch:'東京'},
+  '4-150':{lKanji:'阪野 清人',lKana:'バンノ キヨト',pKanji:'阪野 綾',pKana:'バンノ アヤ',school:'バンノダンススタジオ',branch:'愛知'},
+  '4-193':{lKanji:'柴田 真希',lKana:'シバタ マサキ',pKanji:'柴田 綾子',pKana:'シバタ アヤコ',school:'ナゴヤダンスアカデミー',branch:'愛知'},
+  '4-206':{lKanji:'伊藤 圭一',lKana:'イトウ ケイイチ',pKanji:'廣瀬 久美',pKana:'ヒロセ クミ',school:'リフレッシュダンススタジオミエ',branch:'三重'},
+  '4-223':{lKanji:'安藤 裕一',lKana:'アンドウ ユウイチ',pKanji:'河内 芳江',pKana:'カワチ ヨシエ',school:'カワチダンススタジオ',branch:'愛知'},
+  '4-233':{lKanji:'新海 晋也',lKana:'シンカイ シンヤ',pKanji:'新海きみ子',pKana:'シンカイ キミコ',school:'新海ダンススタジオ',branch:'愛知'},
+  '4-240':{lKanji:'野田 幹也',lKana:'ノダ ミキヤ',pKanji:'広瀬 真名',pKana:'ヒロセ マナ',school:'ナゴヤダンスアカデミー',branch:'愛知'},
+  '4-258':{lKanji:'中野 雅章',lKana:'ナカノ マサアキ',pKanji:'中野由美恵',pKana:'ナカノ ユミエ',school:'中野まさあきダンススタジオ',branch:'三重'},
+  '4-260':{lKanji:'村上 知哉',lKana:'ムラカミ トモヤ',pKanji:'村田 佳澄',pKana:'ムラタ カスミ',school:'サワダマサヒロダンススタジオ',branch:'三重'},
+  '4-262':{lKanji:'勝川 佳和',lKana:'カツカワ ヨシカズ',pKanji:'清水佳奈子',pKana:'シミズ カナコ',school:'バンノダンススタジオ/オザキダンススタジオ',branch:'愛知'},
+  '4-270':{lKanji:'竹内 大祐',lKana:'タケウチ ダイスケ',pKanji:'竹内 桃子',pKana:'タケウチ モモコ',school:'Dance&Motion TAKEUCHI',branch:'愛知'},
+  '4-273':{lKanji:'勝野 出',lKana:'カツノ イヅル',pKanji:'浅海 愛',pKana:'アサウミ アイ',school:'DANCE FUSION',branch:'愛知'},
+  '4-276':{lKanji:'村澤 俊也',lKana:'ムラサワ シュンヤ',pKanji:'鈴木 伶奈',pKana:'スズキ レナ',school:'梅原ダンススクール',branch:'愛知'},
+  '4-277':{lKanji:'金原 亮司',lKana:'キンパラ リョウジ',pKanji:'永原 由貴',pKana:'ナガハラ ユキ',school:'小西雅司ダンススタジオ',branch:'愛知'},
+  '4-279':{lKanji:'柴山 和樹',lKana:'シバヤマ カズキ',pKanji:'平岩 英里',pKana:'ヒライワ エリ',school:'DANCE STUDIO B&G',branch:'愛知'},
+  '4-283':{lKanji:'新美 一輝',lKana:'ニイミ カズキ',pKanji:'山口ひかり',pKana:'ヤマグチ ヒカリ',school:'サトウダンススクール',branch:'愛知'},
+  '4-286':{lKanji:'岡 俊宏',lKana:'オカ トシヒロ',pKanji:'岡 瑞紀',pKana:'オカ ミズキ',school:'DANCE FUSION',branch:'愛知'},
+  '4-289':{lKanji:'松永 卓也',lKana:'マツナガ タクヤ',pKanji:'松永由莉枝',pKana:'マツナガ ユリエ',school:'新海ダンススタジオ',branch:'愛知'},
+  '4-290':{lKanji:'太田 雅士',lKana:'オオタ マサシ',pKanji:'太田 薫',pKana:'オオタ カオル',school:'ニシダダンススタジオ',branch:'愛知'},
+  '4-291':{lKanji:'岩本 憲幸',lKana:'イワモト ノリユキ',pKanji:'稲垣はる美',pKana:'イナガキ ハルミ',school:'ナゴヤダンスアカデミー',branch:'愛知'},
+  '4-292':{lKanji:'小森 康裕',lKana:'コモリ ヤスヒロ',pKanji:'滝川 和美',pKana:'タキカワ カズミ',school:'サトウダンススクール',branch:'愛知'},
+  '4-297':{lKanji:'森川 真',lKana:'モリカワ マコト',pKanji:'倉岡 美生',pKana:'クラオカ ミウ',school:'サワダマサヒロダンススタジオ',branch:'三重'},
+  '4-300':{lKanji:'森田 貴久',lKana:'モリタ タカヒサ',pKanji:'木全 志穂',pKana:'キマタ シホ',school:'アカデミー オブ ダンス.ヨコタ/バンノダンススタジオ',branch:'愛知'},
+  '4-302':{lKanji:'岩田 健司',lKana:'イワタ ケンジ',pKanji:'寺島 裕希',pKana:'テラシマ ユウキ',school:'岩田健司ダンススタジオ/小西雅司ダンススタジオ',branch:'愛知'},
+  '4-303':{lKanji:'山﨑 雅則',lKana:'ヤマザキ マサノリ',pKanji:'河内 知子',pKana:'カワチ トモコ',school:'カワチダンススタジオ',branch:'愛知'},
+  '4-305':{lKanji:'楠本 和嵩',lKana:'クスモト カズタカ',pKanji:'宇瀬 薫',pKana:'ウセ カオル',school:'中川雄太ダンスアカデミー',branch:'愛知'},
+  '4-306':{lKanji:'平柳 諒悟',lKana:'ヒラヤナギ リョウゴ',pKanji:'佐田みづほ',pKana:'サダ ミヅホ',school:'小西雅司ダンススタジオ',branch:'愛知'},
+  '5-300':{lKanji:'伊藤 大輔',lKana:'イトウ ダイスケ',pKanji:'伴 まゆみ',pKana:'バン マユミ',school:'ダンススクールD&M',branch:'大阪'},
+  '5-394':{lKanji:'中田 裕也',lKana:'ナカタ ユウヤ',pKanji:'佐々木真那',pKana:'ササキ マナ',school:'O&Nダンスカンパニー',branch:'大阪'},
+  '5-397':{lKanji:'渡辺 幸司',lKana:'ワタナベ コウジ',pKanji:'市川 由佳',pKana:'イチカワ ユカ',school:'cityダンススクール',branch:'大阪'},
+  '6-100':{lKanji:'中嶋 康人',lKana:'ナカシマ ヤスト',pKanji:'中嶋 藍香',pKana:'ナカシマ アイカ',school:'ダンススタジオ中嶋',branch:'福岡'},
+  '6-148':{lKanji:'平崎 誠',lKana:'ヒラサキ マコト',pKanji:'切手利江子',pKana:'キッテ リエコ',school:'Tokyo渋谷ダンサーズ学院',branch:'九州'},
+  '6-255':{lKanji:'高野 智弥',lKana:'タカノ トモヤ',pKanji:'加藤 七海',pKana:'カトウ ナナミ',school:'DANCE TEAM YOKO',branch:'鹿児島'}
 };
 
 // ===== 競技データ（令和8年2月1日大会）=====
@@ -783,35 +714,37 @@ function getRegNo(p1Id,p2Id){
   return (p1||'')+(p2||'');
 }
 
-// ===== 自動入力（選手データ） =====
+// ===== 自動入力（選手データ）=====
+// 登録番号でマッチした場合、リーダー・パートナー・所属教室・支局をすべて自動入力
+function applyPlayerData(key,role){
+  var data=playerDB[key];
+  if(!data)return;
+  // リーダー情報
+  document.getElementById('leaderKana').value=data.lKana;
+  document.getElementById('leaderKanji').value=data.lKanji;
+  // パートナー情報
+  document.getElementById('partnerKana').value=data.pKana;
+  document.getElementById('partnerKanji').value=data.pKanji;
+  // 共通：所属教室・支局
+  document.getElementById('school').value=data.school;
+  document.getElementById('branch').value=data.branch;
+  // ハイライト
+  ['leaderKana','leaderKanji','partnerKana','partnerKanji','school','branch'].forEach(markAutoFilled);
+  showHint(role+'-autofill-hint');
+}
+
 function tryAutoFillLeader(){
   var p1=document.getElementById('regLeaderP1').value.trim();
   var p2=document.getElementById('regLeaderP2').value.trim();
   if(!p1||!p2)return;
-  var key=p1+'-'+p2;
-  var data=playerDB.leaders[key];
-  if(data){
-    document.getElementById('leaderKana').value=data.kana;
-    document.getElementById('leaderKanji').value=data.kanji;
-    markAutoFilled('leaderKana');
-    markAutoFilled('leaderKanji');
-    showHint('leader-autofill-hint');
-  }
+  applyPlayerData(p1+'-'+p2,'leader');
 }
 
 function tryAutoFillPartner(){
   var p1=document.getElementById('regPartnerP1').value.trim();
   var p2=document.getElementById('regPartnerP2').value.trim();
   if(!p1||!p2)return;
-  var key=p1+'-'+p2;
-  var data=playerDB.partners[key];
-  if(data){
-    document.getElementById('partnerKana').value=data.kana;
-    document.getElementById('partnerKanji').value=data.kanji;
-    markAutoFilled('partnerKana');
-    markAutoFilled('partnerKanji');
-    showHint('partner-autofill-hint');
-  }
+  applyPlayerData(p1+'-'+p2,'partner');
 }
 
 function markAutoFilled(id){
@@ -1017,11 +950,11 @@ function goConfirm(){
   document.getElementById('c-regLeader').textContent=regLeader;
   document.getElementById('c-leaderKana').textContent=document.getElementById('leaderKana').value.trim();
   document.getElementById('c-leaderKanji').textContent=document.getElementById('leaderKanji').value.trim();
-  document.getElementById('c-leaderSchool').textContent=document.getElementById('leaderSchool').value.trim()||'未記入';
   document.getElementById('c-regPartner').textContent=regPartner;
   document.getElementById('c-partnerKana').textContent=document.getElementById('partnerKana').value.trim();
   document.getElementById('c-partnerKanji').textContent=document.getElementById('partnerKanji').value.trim();
-  document.getElementById('c-partnerSchool').textContent=document.getElementById('partnerSchool').value.trim()||'未記入';
+  document.getElementById('c-school').textContent=document.getElementById('school').value.trim()||'未記入';
+  document.getElementById('c-branch').textContent=document.getElementById('branch').value.trim()||'未記入';
 
   var pref=document.getElementById('pref').value.trim();
   var city=document.getElementById('city').value.trim();
@@ -1087,8 +1020,8 @@ async function submitForm(){
   var leaderKana=document.getElementById('leaderKana').value.trim();
   var partnerKanji=document.getElementById('partnerKanji').value.trim();
   var partnerKana=document.getElementById('partnerKana').value.trim();
-  var leaderSchool=document.getElementById('leaderSchool').value.trim()||'未記入';
-  var partnerSchool=document.getElementById('partnerSchool').value.trim()||'未記入';
+  var school=document.getElementById('school').value.trim()||'未記入';
+  var branch=document.getElementById('branch').value.trim()||'未記入';
   var pref=document.getElementById('pref').value.trim();
   var city=document.getElementById('city').value.trim();
   var addr=document.getElementById('addr').value.trim();
@@ -1113,8 +1046,8 @@ async function submitForm(){
     'パートナー登録番号：'+regPartner+'\n'+
     'リーダー：'+leaderKanji+'（'+leaderKana+'）\n'+
     'パートナー：'+partnerKanji+'（'+partnerKana+'）\n'+
-    'リーダー所属教室：'+leaderSchool+'\n'+
-    'パートナー所属教室：'+partnerSchool+'\n'+
+    '所属教室：'+school+'\n'+
+    '支局：'+branch+'\n'+
     '住所：'+addrVal+'\n'+
     'TEL：'+phone+'\n'+
     'メール：'+emailVal+'\n'+
@@ -1125,11 +1058,11 @@ async function submitForm(){
     '振込金額：¥'+transferAmount+'\n'+
     '振込票ファイル：'+receiptFileName;
 
-  var gasPayload={
+    var gasPayload={
     regLeader:regLeader,regPartner:regPartner,
     leaderKanji:leaderKanji,leaderKana:leaderKana,
     partnerKanji:partnerKanji,partnerKana:partnerKana,
-    leaderSchool:leaderSchool,partnerSchool:partnerSchool,
+    school:school,branch:branch,
     address:addrVal,phone:"'"+phone,
     events:selEvList.join(' / '),totalFee:'¥'+total.toLocaleString(),
     email:emailVal,transferDate:tdDisp,
@@ -1162,7 +1095,10 @@ async function submitForm(){
     document.getElementById('step3').classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
-    alert('メール送信に失敗しました。\n電波の良い場所で再度お試しください。\n\nエラー：'+(err.text||err.message||JSON.stringify(err)));
+    alert('メール送信に失敗しました。
+電波の良い場所で再度お試しください。
+
+エラー：'+(err.text||err.message||JSON.stringify(err)));
     btn.disabled=false;
     btn.innerHTML='<i class="fas fa-paper-plane"></i> この内容で申し込む';
   }
