@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>プロ出場申込フォーム｜2026 中部ダンスフェスティバル in 名古屋</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --gold:#c9a84c;--gold-light:#f0d080;
+  --deep-blue:#0d1b3e;--navy:#1a2a5e;--accent:#2e4a9e;
+  --bg:#f4f6fb;--border:#d0d8e8;--text:#1a1a2e;--text-muted:#6b7280;
+  --error:#dc2626;--success:#059669;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:var(--accent)}
+
+/* ===== HEADER ===== */
+header{
+  background:linear-gradient(135deg,var(--deep-blue) 0%,var(--navy) 50%,var(--accent) 100%);
+  position:relative;overflow:hidden;padding:36px 20px 32px;text-align:center;color:#fff
+}
+header::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,.03) 20px,rgba(255,255,255,.03) 40px)
+}
+.header-badge{
+  display:inline-block;background:rgba(201,168,76,.25);border:1px solid var(--gold);
+  color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em;
+  padding:4px 14px;border-radius:20px;margin-bottom:12px
+}
+header h1{
+  font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,32px);
+  font-weight:700;letter-spacing:.05em;margin-bottom:6px;position:relative
+}
+header h1 span{color:var(--gold-light)}
+.header-sub{font-size:13px;opacity:.85;margin-bottom:14px;position:relative}
+.header-info{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px 20px;
+  font-size:12px;opacity:.9;position:relative
+}
+.header-info span{display:flex;align-items:center;gap:5px}
+.header-info i{color:var(--gold)}
+
+/* ===== CONTAINER ===== */
+.container{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+
+/* ===== STEP BAR ===== */
+.step-bar{display:flex;justify-content:center;align-items:center;gap:0;margin-bottom:28px}
+.step{
+  display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+  color:#aab;padding:10px 18px;border-radius:30px;transition:.3s
+}
+.step.active{background:var(--navy);color:#fff}
+.step.done{background:var(--success);color:#fff}
+.step-line{width:40px;height:2px;background:var(--border)}
+.step-num{
+  width:26px;height:26px;border-radius:50%;border:2px solid currentColor;
+  display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0
+}
+.step.done .step-num::before{content:'\f00c';font-family:'Font Awesome 6 Free';font-weight:900}
+
+/* ===== CARD ===== */
+.card{background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(13,27,62,.08);margin-bottom:20px;overflow:hidden}
+.card-title{
+  padding:14px 20px;font-weight:700;font-size:15px;color:var(--deep-blue);
+  border-left:4px solid var(--gold);display:flex;align-items:center;gap:8px;
+  background:linear-gradient(90deg,rgba(201,168,76,.06),transparent)
+}
+.card-title i{color:var(--gold)}
+.card-body{padding:20px}
+
+/* ===== SECTION HEADING ===== */
+.sec-heading{
+  background:linear-gradient(135deg,var(--deep-blue),var(--accent));
+  color:#fff;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;
+  display:flex;align-items:center;gap:8px;margin-bottom:16px
+}
+.sec-heading i{color:var(--gold)}
+
+/* ===== PLAYER COLUMNS ===== */
+.player-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:620px){.player-cols{grid-template-columns:1fr}}
+.player-col-title{
+  font-size:13px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,var(--deep-blue),var(--accent));
+  border-radius:7px;padding:7px 14px;margin-bottom:14px;
+  display:flex;align-items:center;gap:6px
+}
+.player-col-title i{color:var(--gold)}
+.player-col-title.partner{background:linear-gradient(135deg,#b5477a,#e07aaa)}
+.player-col-title.partner i{color:#fde8f3}
+
+/* ===== FORM GROUPS ===== */
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px
+}
+.req{color:var(--error);margin-left:3px}
+.form-group input[type=text],
+.form-group input[type=email],
+.form-group input[type=tel],
+.form-group input[type=date]{
+  width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:15px;font-family:'Noto Sans JP',sans-serif;outline:none;
+  transition:.2s;background:#f9fafb;color:var(--text)
+}
+.form-group input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.form-group input::placeholder{color:#c8cdd8;opacity:1}
+
+/* ===== AUTO-FILL HIGHLIGHT ===== */
+@keyframes autoFillGlow{0%{border-color:var(--success);box-shadow:0 0 0 3px rgba(5,150,105,.2)}100%{border-color:var(--border);box-shadow:none}}
+.auto-filled{animation:autoFillGlow 1.8s ease forwards}
+
+/* ===== REG NUMBER ===== */
+.reg-wrap{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.reg-sep{font-size:20px;font-weight:700;color:var(--gold);flex-shrink:0;line-height:1}
+.reg-input{
+  background:#f9fafb;border:1.5px solid var(--border);border-radius:8px;
+  font-size:16px;font-weight:700;padding:9px 12px;text-align:center;outline:none;
+  font-family:'Noto Sans JP',sans-serif;transition:.2s
+}
+.reg-input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.reg-input::placeholder{color:#c8cdd8;opacity:1}
+.reg-input.err{border-color:var(--error)!important}
+.auto-fill-hint{font-size:11px;color:var(--success);margin-top:3px;display:none}
+.auto-fill-hint.show{display:block}
+
+/* ===== ADDRESS ===== */
+.zip-row{display:flex;gap:10px;align-items:flex-end;margin-bottom:12px}
+.zip-row input{max-width:220px}
+.btn-zip{
+  padding:10px 16px;background:var(--navy);color:#fff;border:none;border-radius:8px;
+  font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s
+}
+.btn-zip:hover{background:var(--accent)}
+.addr-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.pref-input{max-width:66%!important}
+.city-input{max-width:50%!important}
+.addr-input{max-width:33%!important;width:100%}
+input[type=text]#phone{max-width:260px}
+input[type=email]#email{max-width:400px}
+
+/* ===== EVENT GRID ===== */
+.ev-col-header{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.ev-col-label{
+  background:linear-gradient(135deg,var(--deep-blue),var(--accent));
+  color:#fff;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:700;
+  display:flex;align-items:center;gap:8px
+}
+.ev-col-label i{color:var(--gold)}
+.ev-col-label.latin{background:linear-gradient(135deg,#c96090,#f0a8cc)}
+.ev-col-label.latin i{color:#fde8f3}
+.events-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:520px){.events-grid-2col{grid-template-columns:1fr}}
+.ev-card{
+  border:2px solid var(--border);border-radius:10px;padding:14px 12px;
+  cursor:pointer;transition:.2s;background:#fff
+}
+.ev-card:hover{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.ev-card.selected{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.ev-cb-wrap{display:flex;align-items:center;margin-bottom:6px}
+.ev-cb-wrap input[type=checkbox]{display:none}
+.ev-cb-wrap label{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border:2.5px solid var(--border);border-radius:7px;
+  background:#fff;cursor:pointer;transition:.2s;margin:0;flex-shrink:0
+}
+.ev-cb-wrap input[type=checkbox]:checked+label,
+.ev-card.selected .ev-cb-wrap label{
+  background:var(--gold);border-color:var(--gold);
+  box-shadow:0 2px 8px rgba(201,168,76,.35)
+}
+.ev-cb-wrap input[type=checkbox]:checked+label::after,
+.ev-card.selected .ev-cb-wrap label::after{
+  content:'';display:block;width:9px;height:15px;
+  border:3px solid #fff;border-top:none;border-left:none;
+  transform:rotate(45deg) translate(-1px,-2px)
+}
+.ev-no{font-size:15px;font-weight:700;color:var(--gold)}
+.ev-grade{
+  font-size:14px;font-weight:700;padding:3px 10px;border-radius:4px;
+  display:inline-block;margin-bottom:3px
+}
+.ev-name{font-size:16px;font-weight:700;color:var(--text)}
+.ev-price{font-size:15px;color:var(--gold);font-weight:700}
+.total-box{
+  background:linear-gradient(135deg,var(--deep-blue),var(--navy));
+  border-radius:10px;padding:16px 20px;display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:16px
+}
+.total-label{color:rgba(255,255,255,.8);font-size:14px;font-weight:700}
+.total-amount{font-size:26px;font-weight:700;color:var(--gold-light)}
+
+/* ===== FURIKOMI BOX ===== */
+.furikomi-box{
+  background:linear-gradient(135deg,rgba(13,27,62,.04),rgba(46,74,158,.06));
+  border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px
+}
+.furikomi-box h4{color:var(--navy);font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.furikomi-box p{color:var(--text-muted);margin-bottom:4px;line-height:1.6}
+.furikomi-box strong{color:var(--text)}
+
+/* ===== FURIKOMI FIELDS (3-col) ===== */
+.furikomi-fields{
+  display:grid;grid-template-columns:220px minmax(0,220px) minmax(0,180px);
+  gap:0 20px;align-items:start
+}
+@media(max-width:600px){.furikomi-fields{grid-template-columns:1fr}}
+
+/* ===== FILE UPLOAD ===== */
+.file-upload-area{
+  border:2px dashed var(--border);border-radius:10px;padding:24px 16px;
+  text-align:center;cursor:pointer;transition:.2s;background:#f9fafb
+}
+.file-upload-area:hover{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.file-name-display{
+  display:none;margin-top:10px;padding:10px 14px;
+  background:#f0fff4;border:1px solid var(--success);border-radius:8px;
+  font-size:14px;color:var(--success);font-weight:700
+}
+.file-name-display.show{display:flex;align-items:center;gap:8px}
+
+/* ===== NOTICE ===== */
+.notice{
+  background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(46,74,158,.06));
+  border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:14px 16px;
+  margin-bottom:20px;font-size:13px;color:var(--text-muted);line-height:1.7
+}
+.notice strong{color:var(--navy)}
+
+/* ===== NOTES ===== */
+.notes-list{list-style:none;padding:0}
+.notes-list li{
+  padding:6px 0 6px 20px;position:relative;font-size:13px;
+  color:var(--text-muted);border-bottom:1px solid var(--bg);line-height:1.6
+}
+.notes-list li::before{
+  content:'\f071';font-family:'Font Awesome 6 Free';font-weight:900;
+  position:absolute;left:0;color:var(--gold);font-size:11px;top:8px
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary{
+  width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),#a8842e);
+  color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;
+  cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:'Noto Sans JP',sans-serif;box-shadow:0 4px 16px rgba(201,168,76,.35)
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.45)}
+.btn-secondary{
+  padding:12px 24px;background:#fff;color:var(--navy);border:2px solid var(--navy);
+  border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;
+  font-family:'Noto Sans JP',sans-serif
+}
+.btn-secondary:hover{background:var(--navy);color:#fff}
+
+/* ===== ERR MSG ===== */
+.err-msg{
+  font-size:12px;color:var(--error);margin-top:4px;
+  display:none;align-items:center;gap:4px
+}
+.err-msg.show{display:flex}
+#events-err{margin-top:8px}
+
+/* ===== CONFIRM VIEW ===== */
+.confirm-table{width:100%;border-collapse:collapse;font-size:14px}
+.confirm-table th{
+  width:160px;padding:10px 14px;background:rgba(13,27,62,.04);
+  color:var(--navy);font-weight:700;text-align:left;border-bottom:1px solid var(--border);
+  vertical-align:top;white-space:nowrap
+}
+.confirm-table td{
+  padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);
+  line-height:1.6
+}
+@media(max-width:540px){
+  .confirm-table th{width:110px;font-size:12px;padding:8px 10px}
+  .confirm-table td{font-size:13px;padding:8px 10px}
+}
+.tag{
+  display:inline-block;background:linear-gradient(135deg,var(--deep-blue),var(--accent));
+  color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:5px;margin:2px 3px 2px 0
+}
+.confirm-actions{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
+.confirm-actions .btn-primary{flex:1;min-width:200px}
+
+/* ===== COMPLETE VIEW ===== */
+.complete-card{
+  text-align:center;background:#fff;border-radius:14px;
+  padding:40px 24px;box-shadow:0 4px 20px rgba(13,27,62,.08)
+}
+.complete-icon{
+  width:70px;height:70px;background:linear-gradient(135deg,var(--gold),#a8842e);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;font-size:30px;color:#fff
+}
+.complete-card h2{color:var(--navy);font-size:22px;margin-bottom:10px}
+.complete-card p{color:var(--text-muted);font-size:14px;line-height:1.7;margin-bottom:20px}
+.bank-info{
+  background:rgba(13,27,62,.03);border-radius:10px;padding:16px;
+  text-align:left;font-size:13px;margin-bottom:16px
+}
+.bank-info h4{color:var(--navy);font-weight:700;margin-bottom:8px}
+.bank-info p{color:var(--text-muted);line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-badge">JDC公認 №202601 ／ プロフェッショナル部門</div>
+  <h1>2026 中部ダンスフェスティバル<br><span>in 名古屋</span></h1>
+  <div class="header-sub">出場申込フォーム（プロフェッショナル）</div>
+  <div class="header-info">
+    <span><i class="fas fa-calendar-alt"></i>令和8年2月1日（日）10:00〜19:00</span>
+    <span><i class="fas fa-map-marker-alt"></i>岡谷鋼機名古屋公会堂 4Fホール</span>
+    <span><i class="fas fa-clock"></i>申込締切：令和8年1月9日（金）必着</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="step-bar">
+    <div class="step active" id="step1"><div class="step-num">1</div>入力</div>
+    <div class="step-line"></div>
+    <div class="step" id="step2"><div class="step-num">2</div>確認</div>
+    <div class="step-line"></div>
+    <div class="step" id="step3"><div class="step-num">3</div>完了</div>
+  </div>
+
+  <!-- ========== FORM VIEW ========== -->
+  <div id="formView">
+    <div class="notice">
+      <strong><i class="fas fa-info-circle" style="color:var(--gold)"></i> 申込方法について</strong><br>
+      登録番号を入力すると選手情報が自動入力されます（手動変更も可能）。<br>
+      出場料を郵便振替にてお振込み後、振込票の画像を添付の上お申し込みください。<br>
+      他団体登録のプロフェッショナル選手の出場料は<strong>1区分 ¥10,000</strong>です。
+    </div>
+
+    <!-- 選手情報 -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-users"></i> 選手情報</div>
+      <div class="card-body">
+        <div class="player-cols">
+          <!-- リーダー列 -->
+          <div>
+            <div class="player-col-title"><i class="fas fa-male"></i> リーダー</div>
+            <div class="form-group">
+              <label>JDC登録番号<span class="req">*</span></label>
+              <div class="reg-wrap">
+                <input type="text" id="regLeaderP1" class="reg-input" maxlength="1" placeholder="1"
+                  oninput="handleRegInput(this,'regLeaderP2',tryAutoFillLeader)" inputmode="numeric" style="width:52px">
+                <span class="reg-sep">-</span>
+                <input type="text" id="regLeaderP2" class="reg-input" maxlength="3" placeholder="234"
+                  oninput="handleRegInput(this,null,tryAutoFillLeader)" inputmode="numeric" style="width:72px">
+              </div>
+              <div class="auto-fill-hint" id="leader-autofill-hint"><i class="fas fa-check-circle"></i> 選手データから自動入力しました</div>
+              <div class="err-msg" id="regLeader-err"><i class="fas fa-exclamation-circle"></i> 登録番号を「1桁－3桁」の半角数字で入力してください</div>
+            </div>
+            <div class="form-group">
+              <label>リーダー名（ふりがな）<span class="req">*</span></label>
+              <input type="text" id="leaderKana" placeholder="例：やまだ たろう">
+              <div class="err-msg" id="leaderKana-err"><i class="fas fa-exclamation-circle"></i> ふりがなを入力してください</div>
+            </div>
+            <div class="form-group">
+              <label>リーダー名（漢字）<span class="req">*</span></label>
+              <input type="text" id="leaderKanji" placeholder="例：山田 太郎">
+              <div class="err-msg" id="leaderKanji-err"><i class="fas fa-exclamation-circle"></i> 氏名を入力してください</div>
+            </div>
+            <div class="form-group">
+              <label>所属教室</label>
+              <input type="text" id="leaderSchool" placeholder="例：○○ダンス教室">
+            </div>
+          </div>
+          <!-- パートナー列 -->
+          <div>
+            <div class="player-col-title partner"><i class="fas fa-female"></i> パートナー</div>
+            <div class="form-group">
+              <label>JDC登録番号<span class="req">*</span></label>
+              <div class="reg-wrap">
+                <input type="text" id="regPartnerP1" class="reg-input" maxlength="1" placeholder="1"
+                  oninput="handleRegInput(this,'regPartnerP2',tryAutoFillPartner)" inputmode="numeric" style="width:52px">
+                <span class="reg-sep">-</span>
+                <input type="text" id="regPartnerP2" class="reg-input" maxlength="3" placeholder="234"
+                  oninput="handleRegInput(this,null,tryAutoFillPartner)" inputmode="numeric" style="width:72px">
+              </div>
+              <div class="auto-fill-hint" id="partner-autofill-hint"><i class="fas fa-check-circle"></i> 選手データから自動入力しました</div>
+              <div class="err-msg" id="regPartner-err"><i class="fas fa-exclamation-circle"></i> 登録番号を「1桁－3桁」の半角数字で入力してください</div>
+            </div>
+            <div class="form-group">
+              <label>パートナー名（ふりがな）<span class="req">*</span></label>
+              <input type="text" id="partnerKana" placeholder="例：やまだ はなこ">
+              <div class="err-msg" id="partnerKana-err"><i class="fas fa-exclamation-circle"></i> ふりがなを入力してください</div>
+            </div>
+            <div class="form-group">
+              <label>パートナー名（漢字）<span class="req">*</span></label>
+              <input type="text" id="partnerKanji" placeholder="例：山田 花子">
+              <div class="err-msg" id="partnerKanji-err"><i class="fas fa-exclamation-circle"></i> 氏名を入力してください</div>
+            </div>
+            <div class="form-group">
+              <label>所属教室</label>
+              <input type="text" id="partnerSchool" placeholder="例：○○ダンス教室">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 住所・連絡先 -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-map-marker-alt"></i> 住所・連絡先</div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>郵便番号<span class="req">*</span></label>
+          <div class="zip-row">
+            <input type="text" id="zip" placeholder="1234567" maxlength="7" inputmode="numeric" oninput="toHankaku(this)">
+            <button type="button" class="btn-zip" onclick="searchZip()"><i class="fas fa-search"></i> 住所検索</button>
+          </div>
+          <div class="err-msg" id="zip-err"><i class="fas fa-exclamation-circle"></i> 7桁の郵便番号を入力してください</div>
+        </div>
+        <div class="addr-row">
+          <div class="form-group" style="flex:1">
+            <label>都道府県<span class="req">*</span></label>
+            <input type="text" id="pref" class="pref-input" placeholder="愛知県" readonly
+              style="background:#f9fafb;cursor:default;color:#c8cdd8;-webkit-text-fill-color:#c8cdd8;opacity:1">
+            <div class="err-msg" id="pref-err"><i class="fas fa-exclamation-circle"></i> 都道府県を入力してください</div>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>市区町村</label>
+            <input type="text" id="city" class="city-input" placeholder="名古屋市昭和区" readonly
+              style="background:#f9fafb;cursor:default;color:#c8cdd8;-webkit-text-fill-color:#c8cdd8;opacity:1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>番地・建物名</label>
+          <input type="text" id="addr" class="addr-input" placeholder="鶴舞1-1-3 ○○マンション101">
+        </div>
+        <div class="form-group">
+          <label>携帯電話番号<span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="09012345678" inputmode="numeric" oninput="toHankaku(this)">
+          <div class="err-msg" id="phone-err"><i class="fas fa-exclamation-circle"></i> 電話番号を入力してください</div>
+        </div>
+        <div class="form-group">
+          <label>メールアドレス<span class="req">*</span></label>
+          <input type="email" id="email" placeholder="example@email.com">
+          <div class="err-msg" id="email-err"><i class="fas fa-exclamation-circle"></i> 正しいメールアドレスを入力してください</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 出場競技区分 -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-trophy"></i> 出場競技区分</div>
+      <div class="card-body">
+        <div class="ev-col-header">
+          <div class="ev-col-label"><i class="fas fa-crown"></i> ボールルーム</div>
+          <div class="ev-col-label latin"><i class="fas fa-fire"></i> ラテンアメリカン</div>
+        </div>
+        <div class="events-grid-2col" id="evGrid-all"></div>
+        <div class="err-msg" id="events-err"><i class="fas fa-exclamation-circle"></i> 競技区分を1つ以上選択してください</div>
+        <div class="total-box">
+          <div class="total-label"><i class="fas fa-yen-sign"></i> 合計出場料</div>
+          <div class="total-amount">¥<span id="totalAmt">0</span></div>
+        </div>
+        <div class="furikomi-box">
+          <h4><i class="fas fa-university" style="color:var(--gold)"></i> 振込先</h4>
+          <p><strong>郵便振替：</strong>JDC中部総局 競技部　口座番号 00830-5-88490</p>
+          <p><strong>ゆうちょ銀行以外：</strong>〇八九店（ゼロハチキュウ店）当座 0088490</p>
+          <p style="color:var(--error);margin-top:6px"><i class="fas fa-exclamation-triangle"></i> 通信欄に「令和8年2月1日 2026中部ダンスフェスティバル in 名古屋」と明記してください</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 振込情報 -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-calendar-check"></i> 振込情報</div>
+      <div class="card-body">
+        <div class="furikomi-fields">
+          <div class="form-group">
+            <label>振込日<span class="req">*</span></label>
+            <input type="date" id="transferDate">
+            <div class="err-msg" id="transferDate-err"><i class="fas fa-exclamation-circle"></i> 振込日を入力してください</div>
+          </div>
+          <div class="form-group">
+            <label>振込人名<span class="req">*</span></label>
+            <input type="text" id="transferName" placeholder="例：ヤマダ タロウ">
+            <div class="err-msg" id="transferName-err"><i class="fas fa-exclamation-circle"></i> 振込人名を入力してください</div>
+          </div>
+          <div class="form-group">
+            <label>振込金額<span class="req">*</span></label>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:15px;font-weight:700;color:var(--gold)">¥</span>
+              <input type="text" id="transferAmount" placeholder="例：10000" inputmode="numeric" style="max-width:140px" oninput="toHankaku(this)">
+            </div>
+            <div class="err-msg" id="transferAmount-err"><i class="fas fa-exclamation-circle"></i> 振込金額を入力してください</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 振込票の添付 -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-paperclip"></i> 振込票の添付</div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">
+          <i class="fas fa-info-circle" style="color:var(--gold)"></i>
+          出場料の振込票（払込受領書）の画像・写真をご添付ください。PDF・JPEG・PNG 対応。
+        </p>
+        <div class="form-group">
+          <label>振込票ファイル<span class="req">*</span></label>
+          <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('receiptFile').click()">
+            <i class="fas fa-cloud-upload-alt" style="font-size:28px;color:var(--gold);margin-bottom:8px"></i>
+            <p style="font-size:14px;color:var(--text-muted);margin:0">クリックしてファイルを選択</p>
+            <p style="font-size:12px;color:#aaa;margin-top:4px">PDF / JPEG / PNG / GIF</p>
+            <input type="file" id="receiptFile" accept=".pdf,.jpg,.jpeg,.png,.gif" style="display:none" onchange="handleFileSelect(this)">
+          </div>
+          <div class="file-name-display" id="fileNameDisplay">
+            <i class="fas fa-check-circle"></i>
+            <span id="fileNameText"></span>
+          </div>
+          <div class="err-msg" id="receiptFile-err"><i class="fas fa-exclamation-circle"></i> 振込票ファイルを添付してください</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 注意事項 -->
+    <div class="card">
+      <div class="card-title"><i class="fas fa-exclamation-triangle"></i> 注意事項</div>
+      <div class="card-body">
+        <ul class="notes-list">
+          <li>申込締切は<strong>令和8年1月9日（金）必着</strong>です。期限を過ぎると遅延事務手数料（2,000円）が発生する場合があります。</li>
+          <li>他団体登録のプロフェッショナル選手の出場料は1区分<strong>¥10,000</strong>です。</li>
+          <li>各セクションにおいて、出場組数によっては中止の場合もあります。</li>
+          <li>納入された出場料は、原則として返金できません。</li>
+          <li>JDC登録選手は登録認定証のコピーを別途ご持参ください。</li>
+          <li>問い合わせ先：JDC中部総局事務局 TEL：052-745-2345（月・火・水 10:00〜16:00）</li>
+        </ul>
+      </div>
+    </div>
+
+    <button type="button" class="btn-primary" onclick="goConfirm()">
+      <i class="fas fa-arrow-right"></i> 申込内容を確認する
+    </button>
+  </div>
+
+  <!-- ========== CONFIRM VIEW ========== -->
+  <div id="confirmView" style="display:none">
+    <div class="card">
+      <div class="card-title"><i class="fas fa-clipboard-check"></i> 申込内容の確認</div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">以下の内容でお申し込みします。内容をご確認の上、「この内容で申し込む」ボタンを押してください。</p>
+        <table class="confirm-table">
+          <tr><th>リーダー登録番号</th><td id="c-regLeader"></td></tr>
+          <tr><th>リーダー（ふりがな）</th><td id="c-leaderKana"></td></tr>
+          <tr><th>リーダー（氏名）</th><td id="c-leaderKanji"></td></tr>
+          <tr><th>リーダー所属教室</th><td id="c-leaderSchool"></td></tr>
+          <tr><th>パートナー登録番号</th><td id="c-regPartner"></td></tr>
+          <tr><th>パートナー（ふりがな）</th><td id="c-partnerKana"></td></tr>
+          <tr><th>パートナー（氏名）</th><td id="c-partnerKanji"></td></tr>
+          <tr><th>パートナー所属教室</th><td id="c-partnerSchool"></td></tr>
+          <tr><th>住所</th><td id="c-address"></td></tr>
+          <tr><th>携帯電話番号</th><td id="c-phone"></td></tr>
+          <tr><th>メールアドレス</th><td id="c-email"></td></tr>
+          <tr><th>出場競技区分</th><td id="c-events"></td></tr>
+          <tr><th>合計出場料</th><td id="c-total" style="font-weight:700;color:var(--gold)"></td></tr>
+          <tr><th>振込日</th><td id="c-transferDate"></td></tr>
+          <tr><th>振込人名</th><td id="c-transferName"></td></tr>
+          <tr><th>振込金額</th><td id="c-transferAmount"></td></tr>
+          <tr><th>振込票ファイル</th><td id="c-receiptFile"></td></tr>
+        </table>
+        <div class="confirm-actions">
+          <button type="button" class="btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> 戻って修正する</button>
+          <button type="button" class="btn-primary" id="submitBtn" onclick="submitForm()">
+            <i class="fas fa-paper-plane"></i> この内容で申し込む
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== COMPLETE VIEW ========== -->
+  <div id="completeView" style="display:none">
+    <div class="complete-card">
+      <div class="complete-icon"><i class="fas fa-check"></i></div>
+      <h2>お申し込みを受け付けました</h2>
+      <p>ご登録のメールアドレスに確認メールをお送りしました。<br>主催者へも同内容でメールが送信されます。<br>メールが届かない場合はお問い合わせください。</p>
+      <div class="bank-info">
+        <h4><i class="fas fa-university" style="color:var(--gold)"></i> 振込先（再確認）</h4>
+        <p><strong>郵便振替：</strong>JDC中部総局 競技部　00830-5-88490<br>
+        <strong>ゆうちょ銀行以外：</strong>〇八九店（ゼロハチキュウ店）当座 0088490<br>
+        通信欄に「令和8年2月1日 2026中部ダンスフェスティバル in 名古屋」と明記</p>
+      </div>
+      <div class="bank-info">
+        <h4><i class="fas fa-phone" style="color:var(--gold)"></i> お問い合わせ</h4>
+        <p>JDC中部総局事務局<br>
+        TEL：052-745-2345（月・火・水 10:00〜16:00）<br>
+        〒464-0858 名古屋市千種区千種1-30-2 古井ノ坂ビル201</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+emailjs.init('3A228NVyE5NVMxev8');
+
+// ===== 選手データベース =====
+const playerDB = {
+  leaders: {
+    '3-529':{kanji:'鮫口伸一郎',kana:'サメグチ シンイチロウ'},
+    '3-566':{kanji:'小野 孝明',kana:'オノ コウメイ'},
+    '3-569':{kanji:'田原 健二',kana:'タハラ ケンジ'},
+    '3-624':{kanji:'丁野 真一',kana:'チョウノ シンイチ'},
+    '3-659':{kanji:'内藤 達矢',kana:'ナイトウ タツヤ'},
+    '3-671':{kanji:'西尾 浩一',kana:'ニシオ コウイチ'},
+    '3-734':{kanji:'永田 薫',kana:'ナガタ カオル'},
+    '3-740':{kanji:'亀川 隆史',kana:'カメガワ タカフミ'},
+    '3-749':{kanji:'松岡 佑紀',kana:'マツオカ ユウキ'},
+    '3-762':{kanji:'斉藤 達哉',kana:'サイトウ タツヤ'},
+    '3-764':{kanji:'田中 孝康',kana:'タナカ ノリヤス'},
+    '3-796':{kanji:'原 辰瑠',kana:'ハラ タツル'},
+    '3-813':{kanji:'畠山 貴弘',kana:'ハタケヤマ タカヒロ'},
+    '3-827':{kanji:'箱田翔次郎',kana:'ハコダ ショウジロウ'},
+    '3-830':{kanji:'奥野 貴',kana:'オクノ タカヤ'},
+    '3-831':{kanji:'瀬内 英幸',kana:'セウチ ヒデユキ'},
+    '3-833':{kanji:'寺門 駿',kana:'テラカド シュン'},
+    '3-841':{kanji:'森安 略夫',kana:'モリヤス ノリオ'},
+    '3-844':{kanji:'浜崎 裕章',kana:'ハマサキ ヒロフミ'},
+    '3-854':{kanji:'宮原明希光',kana:'ミヤハラ アキミツ'},
+    '3-861':{kanji:'滝澤 聖也',kana:'タキザワ セイヤ'},
+    '3-862':{kanji:'石川 敬之',kana:'イシカワ ノリユキ'},
+    '3-869':{kanji:'田中慎一朗',kana:'タナカ シンイチロウ'},
+    '3-870':{kanji:'東海林祐介',kana:'トウカイリン ユウスケ'},
+    '3-871':{kanji:'工藤 正俊',kana:'クドウ マサトシ'},
+    '3-873':{kanji:'中野 颯斗',kana:'ナカノ ハヤト'},
+    '4-120':{kanji:'佐野 智一',kana:'サノ トモカズ'},
+    '4-150':{kanji:'阪野 清人',kana:'バンノ キヨト'},
+    '4-193':{kanji:'柴田 真希',kana:'シバタ マサキ'},
+    '4-206':{kanji:'伊藤 圭一',kana:'イトウ ケイイチ'},
+    '4-223':{kanji:'安藤 裕一',kana:'アンドウ ユウイチ'},
+    '4-233':{kanji:'新海 晋也',kana:'シンカイ シンヤ'},
+    '4-240':{kanji:'野田 幹也',kana:'ノダ ミキヤ'},
+    '4-258':{kanji:'中野 雅章',kana:'ナカノ マサアキ'},
+    '4-260':{kanji:'村上 知哉',kana:'ムラカミ トモヤ'},
+    '4-262':{kanji:'勝川 佳和',kana:'カツカワ ヨシカズ'},
+    '4-270':{kanji:'竹内 大祐',kana:'タケウチ ダイスケ'},
+    '4-273':{kanji:'勝野 出',kana:'カツノ イヅル'},
+    '4-276':{kanji:'村澤 俊也',kana:'ムラサワ シュンヤ'},
+    '4-277':{kanji:'金原 亮司',kana:'キンパラ リョウジ'},
+    '4-279':{kanji:'柴山 和樹',kana:'シバヤマ カズキ'},
+    '4-283':{kanji:'新美 一輝',kana:'ニイミ カズキ'},
+    '4-286':{kanji:'岡 俊宏',kana:'オカ トシヒロ'},
+    '4-289':{kanji:'松永 卓也',kana:'マツナガ タクヤ'},
+    '4-290':{kanji:'太田 雅士',kana:'オオタ マサシ'},
+    '4-291':{kanji:'岩本 憲幸',kana:'イワモト ノリユキ'},
+    '4-292':{kanji:'小森 康裕',kana:'コモリ ヤスヒロ'},
+    '4-297':{kanji:'森川 真',kana:'モリカワ マコト'},
+    '4-300':{kanji:'森田 貴久',kana:'モリタ タカヒサ'},
+    '4-302':{kanji:'岩田 健司',kana:'イワタ ケンジ'},
+    '4-303':{kanji:'山﨑 雅則',kana:'ヤマザキ マサノリ'},
+    '4-305':{kanji:'楠本 和嵩',kana:'クスモト カズタカ'},
+    '4-306':{kanji:'平柳 諒悟',kana:'ヒラヤナギ リョウゴ'},
+    '5-300':{kanji:'伊藤 大輔',kana:'イトウ ダイスケ'},
+    '5-394':{kanji:'中田 裕也',kana:'ナカタ ユウヤ'},
+    '5-396':{kanji:'下田 陸斗',kana:'シモダ リクト'},
+    '5-397':{kanji:'渡辺 幸司',kana:'ワタナベ コウジ'},
+    '6-100':{kanji:'中嶋 康人',kana:'ナカシマ ヤスト'},
+    '6-148':{kanji:'平﨑 誠',kana:'ヒラサキ マコト'},
+    '6-228':{kanji:'岸本 真臣',kana:'キシモト マサオミ'},
+    '6-255':{kanji:'高野 智弥',kana:'タカノ トモヤ'}
+  },
+  partners: {
+    '3-529':{kanji:'阿部里香子',kana:'アベ リカコ'},
+    '3-566':{kanji:'小野恵美織',kana:'オノ エミリ'},
+    '3-569':{kanji:'上脇友季湖',kana:'カミワキ ユキコ'},
+    '3-624':{kanji:'井上 望',kana:'イノウエ ノゾミ'},
+    '3-659':{kanji:'手島 紫乃',kana:'テシマ シノ'},
+    '3-671':{kanji:'下田 藍',kana:'シモダ アイ'},
+    '3-734':{kanji:'飯野さやか',kana:'イイノ サヤカ'},
+    '3-740':{kanji:'新保 伊央',kana:'シンポ イオ'},
+    '3-749':{kanji:'齊藤ひかる',kana:'サイトウ ヒカル'},
+    '3-762':{kanji:'八木恵里香',kana:'ヤギ エリカ'},
+    '3-764':{kanji:'加藤美智子',kana:'カトウ ミチコ'},
+    '3-796':{kanji:'井上 愛香',kana:'イノウエ アイカ'},
+    '3-813':{kanji:'高橋 美樹',kana:'タカハシ ミキ'},
+    '3-827':{kanji:'田原麻吏可',kana:'タハラ マリカ'},
+    '3-830':{kanji:'石井 沙耶',kana:'イシイ サヤ'},
+    '3-831':{kanji:'斎木 智子',kana:'サイキ トモコ'},
+    '3-833':{kanji:'寺門 彩香',kana:'テラカド アヤカ'},
+    '3-841':{kanji:'竹澤 陽子',kana:'タケザワ ヨウコ'},
+    '3-844':{kanji:'浅井 美薫',kana:'アサイ ミオ'},
+    '3-854':{kanji:'松下 梨沙',kana:'マツシタ リサ'},
+    '3-861':{kanji:'前田 馨',kana:'マエダ カオル'},
+    '3-862':{kanji:'奥 恵弥',kana:'オク アヤ'},
+    '3-869':{kanji:'田中 あや',kana:'タナカ アヤ'},
+    '3-870':{kanji:'立花 悠',kana:'タチバナ ハルカ'},
+    '3-871':{kanji:'李 夢希',kana:'リ ムキ'},
+    '3-873':{kanji:'DAGA',kana:'ダガ'},
+    '4-120':{kanji:'佐野 和美',kana:'サノ カズミ'},
+    '4-150':{kanji:'阪野 綾',kana:'バンノ アヤ'},
+    '4-193':{kanji:'柴田 綾子',kana:'シバタ アヤコ'},
+    '4-206':{kanji:'廣瀬 久美',kana:'ヒロセ クミ'},
+    '4-223':{kanji:'河内 芳江',kana:'カワチ ヨシエ'},
+    '4-233':{kanji:'新海きみ子',kana:'シンカイ キミコ'},
+    '4-240':{kanji:'広瀬 真名',kana:'ヒロセ マナ'},
+    '4-258':{kanji:'中野由美恵',kana:'ナカノ ユミエ'},
+    '4-260':{kanji:'村田 佳澄',kana:'ムラタ カスミ'},
+    '4-262':{kanji:'清水佳奈子',kana:'シミズ カナコ'},
+    '4-270':{kanji:'竹内 桃子',kana:'タケウチ モモコ'},
+    '4-273':{kanji:'浅海 愛',kana:'アサウミ アイ'},
+    '4-276':{kanji:'鈴木 伶奈',kana:'スズキ レナ'},
+    '4-277':{kanji:'永原 由貴',kana:'ナガハラ ユキ'},
+    '4-279':{kanji:'平岩 英里',kana:'ヒライワ エリ'},
+    '4-283':{kanji:'山口ひかり',kana:'ヤナグチ ヒカリ'},
+    '4-286':{kanji:'岡 瑞紀',kana:'オカ ミズキ'},
+    '4-289':{kanji:'松永由莉枝',kana:'マツナガ ユリエ'},
+    '4-290':{kanji:'川澄 清香',kana:'カワスミ サヤカ'},
+    '4-291':{kanji:'稲垣 はる美',kana:'イナガキ ハルミ'},
+    '4-292':{kanji:'滝川 和美',kana:'タキカワ カズミ'},
+    '4-297':{kanji:'倉岡 美生',kana:'クラオカ ミウ'},
+    '4-300':{kanji:'木全 志穂',kana:'キマタ シホ'},
+    '4-302':{kanji:'寺島 裕希',kana:'テラシマ ユウキ'},
+    '4-303':{kanji:'河内 知子',kana:'カワチ トモコ'},
+    '4-305':{kanji:'宇瀬 薫',kana:'ウセ カオル'},
+    '4-306':{kanji:'佐田みづほ',kana:'サダ ミヅホ'},
+    '5-300':{kanji:'伴 まゆみ',kana:'バン マユミ'},
+    '5-394':{kanji:'佐々木真那',kana:'ササキ マナ'},
+    '5-396':{kanji:'板谷 明穂',kana:'イタタニ アキホ'},
+    '5-397':{kanji:'市川 由佳',kana:'イチカワ ユカ'},
+    '6-100':{kanji:'中嶋 藍香',kana:'ナカシマ アイカ'},
+    '6-148':{kanji:'切手利江子',kana:'キッテ リエコ'},
+    '6-228':{kanji:'大津谷陽子',kana:'オオツタニ ヨウコ'},
+    '6-255':{kanji:'加藤 七海',kana:'カトウ ナナミ'}
+  }
+};
+
+// ===== 競技データ（令和8年2月1日大会）=====
+const EVENT_DATE = '令和8年2月1日（日）';
+const proData = {
+  ballroom:[
+    {id:'P1',no:1,grade:'オープン選手権',name:'WTFQ 4種目総合',price:5000},
+    {id:'P3',no:3,grade:'BCD級',name:'WF 2種目総合',price:5000},
+    {id:'P5',no:5,grade:'CD級',name:'TF 2種目総合',price:5000},
+    {id:'P7',no:7,grade:'DN級',name:'WT 2種目総合',price:5000}
+  ],
+  latin:[
+    {id:'P2',no:2,grade:'オープン選手権',name:'CSRP 4種目総合',price:5000},
+    {id:'P4',no:4,grade:'BCD級',name:'SR 2種目総合',price:5000},
+    {id:'P6',no:6,grade:'CD級',name:'RP 2種目総合',price:5000},
+    {id:'P8',no:8,grade:'DN級',name:'CS 2種目総合',price:5000}
+  ]
+};
+const GAS_URL='https://script.google.com/macros/s/AKfycbygAVM_Dhc4DkL0QnP6obLnczi9LTL8wBuPPL2g_ZCcqVgVxUGlwUim8Lw1u8Rh6lAl/exec';
+
+var selectedEvents={};
+
+// ===== 初期化 =====
+window.addEventListener('load',function(){
+  buildEvCards();
+});
+
+// ===== 半角変換 =====
+function toHankaku(el){
+  el.value=el.value.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0);});
+}
+
+// ===== 登録番号入力 =====
+function handleRegInput(el,nextId,autoFillFn){
+  el.value=el.value
+    .replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0);})
+    .replace(/[^0-9]/g,'');
+  if(nextId&&el.value.length===parseInt(el.maxLength))
+    document.getElementById(nextId).focus();
+  if(autoFillFn)autoFillFn();
+}
+
+function getRegNo(p1Id,p2Id){
+  var p1=document.getElementById(p1Id).value.trim();
+  var p2=document.getElementById(p2Id).value.trim();
+  if(!p1&&!p2)return '未記入';
+  if(p1&&p2)return p1+'-'+p2;
+  return (p1||'')+(p2||'');
+}
+
+// ===== 自動入力（選手データ） =====
+function tryAutoFillLeader(){
+  var p1=document.getElementById('regLeaderP1').value.trim();
+  var p2=document.getElementById('regLeaderP2').value.trim();
+  if(!p1||!p2)return;
+  var key=p1+'-'+p2;
+  var data=playerDB.leaders[key];
+  if(data){
+    document.getElementById('leaderKana').value=data.kana;
+    document.getElementById('leaderKanji').value=data.kanji;
+    markAutoFilled('leaderKana');
+    markAutoFilled('leaderKanji');
+    showHint('leader-autofill-hint');
+  }
+}
+
+function tryAutoFillPartner(){
+  var p1=document.getElementById('regPartnerP1').value.trim();
+  var p2=document.getElementById('regPartnerP2').value.trim();
+  if(!p1||!p2)return;
+  var key=p1+'-'+p2;
+  var data=playerDB.partners[key];
+  if(data){
+    document.getElementById('partnerKana').value=data.kana;
+    document.getElementById('partnerKanji').value=data.kanji;
+    markAutoFilled('partnerKana');
+    markAutoFilled('partnerKanji');
+    showHint('partner-autofill-hint');
+  }
+}
+
+function markAutoFilled(id){
+  var el=document.getElementById(id);
+  el.classList.remove('auto-filled');
+  void el.offsetWidth;
+  el.classList.add('auto-filled');
+}
+
+function showHint(id){
+  var el=document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(function(){el.classList.remove('show');},3000);
+}
+
+// ===== 競技カード生成 =====
+function buildEvCards(){
+  var allEv=proData.ballroom.concat(proData.latin);
+  allEv.sort(function(a,b){return a.no-b.no;});
+  var odd=allEv.filter(function(ev){return ev.no%2===1;});
+  var even=allEv.filter(function(ev){return ev.no%2===0;});
+  var maxLen=Math.max(odd.length,even.length);
+  var ordered=[];
+  for(var i=0;i<maxLen;i++){
+    if(odd[i])ordered.push(odd[i]);
+    if(even[i])ordered.push(even[i]);
+  }
+  var grid=document.getElementById('evGrid-all');
+  ordered.forEach(function(ev){
+    var d=document.createElement('div');
+    d.className='ev-card';
+    d.id='ev-'+ev.id;
+    var cbId='cb-'+ev.id;
+    var isLatin=ev.no%2===0;
+    var badgeStyle=isLatin
+      ?'background:rgba(201,76,144,.10);color:#b5477a;'
+      :'background:rgba(46,74,158,.10);color:var(--accent);';
+    d.innerHTML=
+      '<div class="ev-cb-wrap">'+
+        '<input type="checkbox" id="'+cbId+'">'+
+        '<label for="'+cbId+'"></label>'+
+      '</div>'+
+      '<div class="ev-no">【No.'+ev.no+'】</div>'+
+      '<div class="ev-grade" style="'+badgeStyle+'">'+ev.grade+'</div>'+
+      '<div class="ev-name">'+ev.name+'</div>'+
+      '<div class="ev-price">¥'+ev.price.toLocaleString()+' / 組</div>';
+    (function(evRef){
+      d.onclick=function(e){
+        if(e.target.tagName==='LABEL'||e.target.tagName==='INPUT')return;
+        toggleEv(evRef);
+      };
+      d.querySelector('input[type=checkbox]').addEventListener('change',function(){
+        toggleEv(evRef);
+      });
+    })(ev);
+    grid.appendChild(d);
+  });
+}
+
+function toggleEv(ev){
+  var card=document.getElementById('ev-'+ev.id);
+  var cb=document.getElementById('cb-'+ev.id);
+  if(selectedEvents[ev.id]){
+    delete selectedEvents[ev.id];
+    card.classList.remove('selected');
+    if(cb)cb.checked=false;
+  }else{
+    selectedEvents[ev.id]=ev;
+    card.classList.add('selected');
+    if(cb)cb.checked=true;
+  }
+  updateTotal();
+}
+
+function updateTotal(){
+  var total=0;
+  Object.values(selectedEvents).forEach(function(ev){total+=ev.price;});
+  document.getElementById('totalAmt').textContent=total.toLocaleString();
+}
+
+// ===== 住所検索（3段階フォールバック）=====
+async function searchZip(){
+  var zip=document.getElementById('zip').value.replace(/[^0-9]/g,'');
+  if(zip.length!==7){showErr('zip-err',true);return;}
+  showErr('zip-err',false);
+  var btn=document.querySelector('.btn-zip');
+  var orig=btn.innerHTML;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> 検索中...';
+  btn.disabled=true;
+
+  function applyFilledStyle(){
+    ['pref','city'].forEach(function(id){
+      var el=document.getElementById(id);
+      el.style.cssText='background:#f0f4ff;color:#1a1a2e;-webkit-text-fill-color:#1a1a2e;opacity:1;cursor:default;';
+    });
+  }
+
+  try{
+    var r=await fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode='+zip);
+    if(r.ok){var d=await r.json();if(d.results&&d.results[0]){
+      document.getElementById('pref').value=d.results[0].address1;
+      document.getElementById('city').value=d.results[0].address2+d.results[0].address3;
+      applyFilledStyle();btn.innerHTML=orig;btn.disabled=false;return;
+    }}
+  }catch(_){}
+
+  try{
+    var r2=await fetch('https://postcode.teraren.com/postcodes/'+zip+'.json');
+    if(r2.ok){var d2=await r2.json();
+      document.getElementById('pref').value=d2.prefecture||'';
+      document.getElementById('city').value=(d2.city||'')+(d2.suburb||'');
+      applyFilledStyle();btn.innerHTML=orig;btn.disabled=false;return;
+    }
+  }catch(_){}
+
+  try{
+    var r3=await fetch('https://madeinkobe.s3.ap-northeast-1.amazonaws.com/zipcode/'+zip.slice(0,3)+'/'+zip+'.json');
+    if(r3.ok){var d3=await r3.json();if(Array.isArray(d3)&&d3[0]){
+      document.getElementById('pref').value=d3[0].pref||'';
+      document.getElementById('city').value=(d3[0].city||'')+(d3[0].town||'');
+      applyFilledStyle();btn.innerHTML=orig;btn.disabled=false;return;
+    }}
+  }catch(_){}
+
+  btn.innerHTML=orig;btn.disabled=false;
+  ['pref','city'].forEach(function(id){
+    var el=document.getElementById(id);
+    el.removeAttribute('readonly');
+    el.style.cssText='background:#fff;cursor:text;color:#1a1a2e;-webkit-text-fill-color:#1a1a2e;opacity:1;';
+  });
+  document.getElementById('pref').placeholder='例：愛知県（直接入力）';
+  document.getElementById('city').placeholder='例：名古屋市昭和区（直接入力）';
+  document.getElementById('pref').focus();
+  alert('自動検索ができませんでした。\n都道府県・市区町村を直接入力してください。');
+}
+
+// ===== ファイル選択 =====
+function handleFileSelect(input){
+  if(input.files&&input.files[0]){
+    var name=input.files[0].name;
+    document.getElementById('fileNameText').textContent=name;
+    document.getElementById('fileNameDisplay').classList.add('show');
+    document.getElementById('fileUploadArea').style.borderColor='var(--success)';
+    showErr('receiptFile-err',false);
+  }
+}
+
+// ===== エラー表示 =====
+function showErr(id,show){
+  var el=document.getElementById(id);
+  if(el)el.classList.toggle('show',show);
+}
+
+// ===== バリデーション =====
+function validate(){
+  var ok=true;
+  function req(id){
+    var v=document.getElementById(id).value.trim();
+    var bad=!v;showErr(id+'-err',bad);if(bad)ok=false;
+  }
+  function checkReg(p1Id,p2Id,errId){
+    var p1=document.getElementById(p1Id).value.trim();
+    var p2=document.getElementById(p2Id).value.trim();
+    var bad=p1.length!==1||p2.length!==3;
+    var errEl=document.getElementById(errId);
+    if(errEl)errEl.classList.toggle('show',bad);
+    document.getElementById(p1Id).classList.toggle('err',bad);
+    document.getElementById(p2Id).classList.toggle('err',bad);
+    if(bad)ok=false;
+  }
+  checkReg('regLeaderP1','regLeaderP2','regLeader-err');
+  checkReg('regPartnerP1','regPartnerP2','regPartner-err');
+  req('leaderKana');req('leaderKanji');req('partnerKana');req('partnerKanji');
+  var emailVal=document.getElementById('email').value.trim();
+  var emailBad=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+  showErr('email-err',emailBad);if(emailBad)ok=false;
+  var zip=document.getElementById('zip').value.replace(/[^0-9]/g,'');
+  showErr('zip-err',zip.length!==7);if(zip.length!==7)ok=false;
+  req('pref');req('phone');
+  if(!Object.keys(selectedEvents).length){showErr('events-err',true);ok=false;}
+  else showErr('events-err',false);
+  var td=document.getElementById('transferDate').value.trim();
+  showErr('transferDate-err',!td);if(!td)ok=false;
+  req('transferName');req('transferAmount');
+  var fileInput=document.getElementById('receiptFile');
+  var fileBad=!fileInput.files||!fileInput.files[0];
+  showErr('receiptFile-err',fileBad);if(fileBad)ok=false;
+  return ok;
+}
+
+// ===== 確認画面へ =====
+function goConfirm(){
+  if(!validate()){
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(function(){
+      var firstErr=document.querySelector('.err-msg.show');
+      if(firstErr)firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+    },100);
+    return;
+  }
+  var regLeader=getRegNo('regLeaderP1','regLeaderP2');
+  var regPartner=getRegNo('regPartnerP1','regPartnerP2');
+  document.getElementById('c-regLeader').textContent=regLeader;
+  document.getElementById('c-leaderKana').textContent=document.getElementById('leaderKana').value.trim();
+  document.getElementById('c-leaderKanji').textContent=document.getElementById('leaderKanji').value.trim();
+  document.getElementById('c-leaderSchool').textContent=document.getElementById('leaderSchool').value.trim()||'未記入';
+  document.getElementById('c-regPartner').textContent=regPartner;
+  document.getElementById('c-partnerKana').textContent=document.getElementById('partnerKana').value.trim();
+  document.getElementById('c-partnerKanji').textContent=document.getElementById('partnerKanji').value.trim();
+  document.getElementById('c-partnerSchool').textContent=document.getElementById('partnerSchool').value.trim()||'未記入';
+
+  var pref=document.getElementById('pref').value.trim();
+  var city=document.getElementById('city').value.trim();
+  var addr=document.getElementById('addr').value.trim();
+  var zip=document.getElementById('zip').value.trim();
+  var addrFull='〒'+zip+' '+pref+city+(addr?' '+addr:'');
+  document.getElementById('c-address').textContent=addrFull;
+  document.getElementById('c-phone').textContent=document.getElementById('phone').value.trim();
+  document.getElementById('c-email').textContent=document.getElementById('email').value.trim();
+
+  var evContainer=document.getElementById('c-events');
+  evContainer.innerHTML='';
+  var sortedEvs=Object.values(selectedEvents).sort(function(a,b){return a.no-b.no;});
+  sortedEvs.forEach(function(ev){
+    var tag=document.createElement('span');
+    tag.className='tag';
+    tag.textContent='【No.'+ev.no+'】'+ev.name;
+    evContainer.appendChild(tag);
+  });
+
+  var total=0;
+  sortedEvs.forEach(function(ev){total+=ev.price;});
+  document.getElementById('c-total').textContent='¥'+total.toLocaleString();
+
+  var tdRaw=document.getElementById('transferDate').value;
+  var tdDisp='';
+  if(tdRaw){var parts=tdRaw.split('-');tdDisp=parts[0]+'年'+parts[1]+'月'+parts[2]+'日';}
+  document.getElementById('c-transferDate').textContent=tdDisp;
+  document.getElementById('c-transferName').textContent=document.getElementById('transferName').value.trim();
+  document.getElementById('c-transferAmount').textContent='¥'+document.getElementById('transferAmount').value.trim();
+
+  var fileInput=document.getElementById('receiptFile');
+  var receiptFileName=fileInput.files&&fileInput.files[0]?fileInput.files[0].name:'（未添付）';
+  document.getElementById('c-receiptFile').textContent=receiptFileName;
+
+  document.getElementById('formView').style.display='none';
+  document.getElementById('confirmView').style.display='block';
+  document.getElementById('step1').classList.remove('active');
+  document.getElementById('step1').classList.add('done');
+  document.getElementById('step2').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== 戻る =====
+function goBack(){
+  document.getElementById('confirmView').style.display='none';
+  document.getElementById('formView').style.display='block';
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step1').classList.remove('done');
+  document.getElementById('step1').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== 送信 =====
+async function submitForm(){
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> 送信中...';
+
+  var regLeader=getRegNo('regLeaderP1','regLeaderP2');
+  var regPartner=getRegNo('regPartnerP1','regPartnerP2');
+  var leaderKanji=document.getElementById('leaderKanji').value.trim();
+  var leaderKana=document.getElementById('leaderKana').value.trim();
+  var partnerKanji=document.getElementById('partnerKanji').value.trim();
+  var partnerKana=document.getElementById('partnerKana').value.trim();
+  var leaderSchool=document.getElementById('leaderSchool').value.trim()||'未記入';
+  var partnerSchool=document.getElementById('partnerSchool').value.trim()||'未記入';
+  var pref=document.getElementById('pref').value.trim();
+  var city=document.getElementById('city').value.trim();
+  var addr=document.getElementById('addr').value.trim();
+  var zip=document.getElementById('zip').value.trim();
+  var addrVal='〒'+zip+' '+pref+city+(addr?' '+addr:'');
+  var phone=document.getElementById('phone').value.trim();
+  var emailVal=document.getElementById('email').value.trim();
+  var tdRaw=document.getElementById('transferDate').value;
+  var transferName=document.getElementById('transferName').value.trim();
+  var transferAmount=document.getElementById('transferAmount').value.trim();
+  var tdDisp='';
+  if(tdRaw){var parts=tdRaw.split('-');tdDisp=parts[0]+'年'+parts[1]+'月'+parts[2]+'日';}
+  var fileInput=document.getElementById('receiptFile');
+  var receiptFileName=fileInput.files&&fileInput.files[0]?fileInput.files[0].name:'未添付';
+  var sortedEvs=Object.values(selectedEvents).sort(function(a,b){return a.no-b.no;});
+  var selEvList=sortedEvs.map(function(ev){return '【No.'+ev.no+'】'+ev.name;});
+  var total=0;sortedEvs.forEach(function(ev){total+=ev.price;});
+
+  var messageBody=
+    '【大会開催日】'+EVENT_DATE+'\n'+
+    'リーダー登録番号：'+regLeader+'\n'+
+    'パートナー登録番号：'+regPartner+'\n'+
+    'リーダー：'+leaderKanji+'（'+leaderKana+'）\n'+
+    'パートナー：'+partnerKanji+'（'+partnerKana+'）\n'+
+    'リーダー所属教室：'+leaderSchool+'\n'+
+    'パートナー所属教室：'+partnerSchool+'\n'+
+    '住所：'+addrVal+'\n'+
+    'TEL：'+phone+'\n'+
+    'メール：'+emailVal+'\n'+
+    '出場競技：\n'+selEvList.join('\n')+'\n'+
+    '合計：¥'+total.toLocaleString()+'\n'+
+    '振込日：'+tdDisp+'\n'+
+    '振込人名：'+transferName+'\n'+
+    '振込金額：¥'+transferAmount+'\n'+
+    '振込票ファイル：'+receiptFileName;
+
+  var gasPayload={
+    regLeader:regLeader,regPartner:regPartner,
+    leaderKanji:leaderKanji,leaderKana:leaderKana,
+    partnerKanji:partnerKanji,partnerKana:partnerKana,
+    leaderSchool:leaderSchool,partnerSchool:partnerSchool,
+    address:addrVal,phone:"'"+phone,
+    events:selEvList.join(' / '),totalFee:'¥'+total.toLocaleString(),
+    email:emailVal,transferDate:tdDisp,
+    transferName:transferName,transferAmount:transferAmount,
+    transferReceipt:receiptFileName
+  };
+
+  var params={
+    to_email:'jdc.chubu@gmail.com',
+    to_name:leaderKanji+' / '+partnerKanji,
+    subject:'【プロ】競技会申し込み書',
+    from_name:'2026中部ダンスフェスティバル申込受付',
+    message:messageBody,
+    reply_to:emailVal,
+    cc_email:emailVal
+  };
+
+  // GAS fire-and-forget
+  try{
+    fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(gasPayload)});
+  }catch(_){}
+
+  // EmailJS await
+  try{
+    await emailjs.send('service_guqkzna','template_yjehnbv',params);
+    document.getElementById('confirmView').style.display='none';
+    document.getElementById('completeView').style.display='block';
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step2').classList.add('done');
+    document.getElementById('step3').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(err){
+    alert('メール送信に失敗しました。\n電波の良い場所で再度お試しください。\n\nエラー：'+(err.text||err.message||JSON.stringify(err)));
+    btn.disabled=false;
+    btn.innerHTML='<i class="fas fa-paper-plane"></i> この内容で申し込む';
+  }
+}
+</script>
+</body>
+</html>
