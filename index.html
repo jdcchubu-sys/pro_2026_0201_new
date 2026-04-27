@@ -1066,7 +1066,20 @@ async function submitForm(){
     '振込金額：¥'+transferAmount+'\n'+
     '振込票ファイル：'+receiptFileName;
 
-    var gasPayload={
+    // 振込票ファイルをBase64変換してGASに送信
+  var receiptBase64='';
+  var receiptMime='';
+  if(fileInput.files&&fileInput.files[0]){
+    var _file=fileInput.files[0];
+    receiptMime=_file.type||'application/octet-stream';
+    receiptBase64=await new Promise(function(resolve){
+      var reader=new FileReader();
+      reader.onload=function(ev){resolve(ev.target.result.split(',')[1]);};
+      reader.readAsDataURL(_file);
+    });
+  }
+
+  var gasPayload={
     regLeader:regLeader,regPartner:regPartner,
     leaderKanji:leaderKanji,leaderKana:leaderKana,
     partnerKanji:partnerKanji,partnerKana:partnerKana,
@@ -1075,7 +1088,9 @@ async function submitForm(){
     events:selEvList.join(' / '),totalFee:'¥'+total.toLocaleString(),
     email:emailVal,transferDate:tdDisp,
     transferName:transferName,transferAmount:transferAmount,
-    transferReceipt:receiptFileName
+    transferReceipt:receiptFileName,
+    receiptBase64:receiptBase64,
+    receiptMime:receiptMime
   };
 
   var params={
