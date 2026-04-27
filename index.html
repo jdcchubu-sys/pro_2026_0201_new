@@ -1095,10 +1095,7 @@ async function submitForm(){
     document.getElementById('step3').classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
-    alert('メール送信に失敗しました。
-電波の良い場所で再度お試しください。
-
-エラー：'+(err.text||err.message||JSON.stringify(err)));
+    alert('メール送信に失敗しました。\n電波の良い場所で再度お試しください。\n\nエラー：'+(err.text||err.message||JSON.stringify(err)));
     btn.disabled=false;
     btn.innerHTML='<i class="fas fa-paper-plane"></i> この内容で申し込む';
   }
