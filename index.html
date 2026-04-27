@@ -612,58 +612,59 @@ emailjs.init('3A228NVyE5NVMxev8');
 
 // ===== 選手データベース（登録番号→全情報）=====
 // lKanji:リーダー漢字 / lKana:リーダーかな / pKanji:パートナー漢字 / pKana:パートナーかな
-// school:所属教室 / branch:支局
+// school:所属教室 / branch:支局 / pRegP1:パートナー番号前部 / pRegP2:パートナー番号後部
 const playerDB = {
-  '3-529':{lKanji:'鮫口伸一郎',lKana:'サメグチ シンイチロウ',pKanji:'阿部里香子',pKana:'アベ リカコ',school:'鮫口ダンス教室',branch:'東京'},
-  '3-566':{lKanji:'小野 孝明',lKana:'オノ コウメイ',pKanji:'小野恵美織',pKana:'オノ エミリ',school:'小野孝明ダンススクール',branch:'神奈川'},
-  '3-569':{lKanji:'田原 健二',lKana:'タハラ ケンジ',pKanji:'上脇友季湖',pKana:'カミワキ ユキコ',school:'タハラダンススタジオ/ダンス大塚会館',branch:'千葉'},
-  '3-734':{lKanji:'永田 薫',lKana:'ナガタ カオル',pKanji:'飯野さやか',pKana:'イイノ サヤカ',school:'小林ダンススクール',branch:'東京'},
-  '3-749':{lKanji:'松岡 佑紀',lKana:'マツオカ ユウキ',pKanji:'齊藤ひかる',pKana:'サイトウ ヒカル',school:'MATSUOKA DANCE PRODUCTION',branch:'神奈川'},
-  '3-762':{lKanji:'斉藤 達哉',lKana:'サイトウ タツヤ',pKanji:'八木恵里香',pKana:'ヤギ エリカ',school:'武田ダンススクール',branch:'東京'},
-  '3-796':{lKanji:'原 辰瑠',lKana:'ハラ タツル',pKanji:'井上 愛香',pKana:'イノウエ アイカ',school:'タハラダンススタジオ/Y&Mダンスラボ.',branch:'千葉'},
-  '3-813':{lKanji:'畠山 貴弘',lKana:'ハタケヤマ タカヒロ',pKanji:'高橋 美樹',pKana:'タカハシ ミキ',school:'小浜ダンスプラザ',branch:'神奈川'},
-  '3-833':{lKanji:'寺門 駿',lKana:'テラカド シュン',pKanji:'寺門 彩香',pKana:'テラカド アヤカ',school:'KM Dance Arts',branch:'東京'},
-  '3-841':{lKanji:'森安 略夫',lKana:'モリヤス ノリオ',pKanji:'竹澤 陽子',pKana:'タケザワ ヨウコ',school:'ASダンススタジオ',branch:'東京'},
-  '3-844':{lKanji:'浜崎 裕章',lKana:'ハマサキ ヒロフミ',pKanji:'川澄 清香',pKana:'カワスミ サヤカ',school:'チョイス&双葉会ダンススタジオ/ニシダダンススタジオ',branch:'東京'},
-  '3-854':{lKanji:'宮原明希光',lKana:'ミヤハラ アキミツ',pKanji:'松下 梨沙',pKana:'マツシタ リサ',school:'Studio Li',branch:'東京'},
-  '3-861':{lKanji:'滝澤 聖也',lKana:'タキザワ セイヤ',pKanji:'前田 馨',pKana:'マエダ カオル',school:'ダンススタジオコネクト橘/TDSサード・ダンススクール',branch:'東京'},
-  '3-862':{lKanji:'石川 敬之',lKana:'イシカワ ノリユキ',pKanji:'奥 恵弥',pKana:'オク アヤ',school:'チョイス&双葉会ダンススタジオ',branch:'東京'},
-  '3-869':{lKanji:'田中慎一朗',lKana:'タナカ シンイチロウ',pKanji:'田中 あや',pKana:'タナカ アヤ',school:'Fontana Dance Studio/ダンススタジオコネクト橘',branch:'東京'},
-  '3-870':{lKanji:'東海林祐介',lKana:'トウカイリン ユウスケ',pKanji:'立花 悠',pKana:'タチバナ ハルカ',school:'Tomorrow  Dance Club',branch:'東京'},
-  '3-871':{lKanji:'工藤 正俊',lKana:'クドウ マサトシ',pKanji:'李 夢希',pKana:'リ ムキ',school:'KM Dance Arts',branch:'東京'},
-  '3-873':{lKanji:'中野 颯斗',lKana:'ナカノ ハヤト',pKanji:'DAGA',pKana:'ダガ',school:'チョイス&双葉会ダンススタジオ',branch:'東京'},
-  '4-150':{lKanji:'阪野 清人',lKana:'バンノ キヨト',pKanji:'阪野 綾',pKana:'バンノ アヤ',school:'バンノダンススタジオ',branch:'愛知'},
-  '4-193':{lKanji:'柴田 真希',lKana:'シバタ マサキ',pKanji:'柴田 綾子',pKana:'シバタ アヤコ',school:'ナゴヤダンスアカデミー',branch:'愛知'},
-  '4-206':{lKanji:'伊藤 圭一',lKana:'イトウ ケイイチ',pKanji:'廣瀬 久美',pKana:'ヒロセ クミ',school:'リフレッシュダンススタジオミエ',branch:'三重'},
-  '4-223':{lKanji:'安藤 裕一',lKana:'アンドウ ユウイチ',pKanji:'河内 芳江',pKana:'カワチ ヨシエ',school:'カワチダンススタジオ',branch:'愛知'},
-  '4-233':{lKanji:'新海 晋也',lKana:'シンカイ シンヤ',pKanji:'新海きみ子',pKana:'シンカイ キミコ',school:'新海ダンススタジオ',branch:'愛知'},
-  '4-240':{lKanji:'野田 幹也',lKana:'ノダ ミキヤ',pKanji:'広瀬 真名',pKana:'ヒロセ マナ',school:'ナゴヤダンスアカデミー',branch:'愛知'},
-  '4-258':{lKanji:'中野 雅章',lKana:'ナカノ マサアキ',pKanji:'中野由美恵',pKana:'ナカノ ユミエ',school:'中野まさあきダンススタジオ',branch:'三重'},
-  '4-260':{lKanji:'村上 知哉',lKana:'ムラカミ トモヤ',pKanji:'村田 佳澄',pKana:'ムラタ カスミ',school:'サワダマサヒロダンススタジオ',branch:'三重'},
-  '4-262':{lKanji:'勝川 佳和',lKana:'カツカワ ヨシカズ',pKanji:'清水佳奈子',pKana:'シミズ カナコ',school:'バンノダンススタジオ/オザキダンススタジオ',branch:'愛知'},
-  '4-270':{lKanji:'竹内 大祐',lKana:'タケウチ ダイスケ',pKanji:'竹内 桃子',pKana:'タケウチ モモコ',school:'Dance&Motion TAKEUCHI',branch:'愛知'},
-  '4-273':{lKanji:'勝野 出',lKana:'カツノ イヅル',pKanji:'浅海 愛',pKana:'アサウミ アイ',school:'DANCE FUSION',branch:'愛知'},
-  '4-276':{lKanji:'村澤 俊也',lKana:'ムラサワ シュンヤ',pKanji:'鈴木 伶奈',pKana:'スズキ レナ',school:'梅原ダンススクール',branch:'愛知'},
-  '4-277':{lKanji:'金原 亮司',lKana:'キンパラ リョウジ',pKanji:'永原 由貴',pKana:'ナガハラ ユキ',school:'小西雅司ダンススタジオ',branch:'愛知'},
-  '4-279':{lKanji:'柴山 和樹',lKana:'シバヤマ カズキ',pKanji:'平岩 英里',pKana:'ヒライワ エリ',school:'DANCE STUDIO B&G',branch:'愛知'},
-  '4-283':{lKanji:'新美 一輝',lKana:'ニイミ カズキ',pKanji:'山口ひかり',pKana:'ヤマグチ ヒカリ',school:'サトウダンススクール',branch:'愛知'},
-  '4-286':{lKanji:'岡 俊宏',lKana:'オカ トシヒロ',pKanji:'岡 瑞紀',pKana:'オカ ミズキ',school:'DANCE FUSION',branch:'愛知'},
-  '4-289':{lKanji:'松永 卓也',lKana:'マツナガ タクヤ',pKanji:'松永由莉枝',pKana:'マツナガ ユリエ',school:'新海ダンススタジオ',branch:'愛知'},
-  '4-290':{lKanji:'太田 雅士',lKana:'オオタ マサシ',pKanji:'太田 薫',pKana:'オオタ カオル',school:'ニシダダンススタジオ',branch:'愛知'},
-  '4-291':{lKanji:'岩本 憲幸',lKana:'イワモト ノリユキ',pKanji:'稲垣はる美',pKana:'イナガキ ハルミ',school:'ナゴヤダンスアカデミー',branch:'愛知'},
-  '4-292':{lKanji:'小森 康裕',lKana:'コモリ ヤスヒロ',pKanji:'滝川 和美',pKana:'タキカワ カズミ',school:'サトウダンススクール',branch:'愛知'},
-  '4-297':{lKanji:'森川 真',lKana:'モリカワ マコト',pKanji:'倉岡 美生',pKana:'クラオカ ミウ',school:'サワダマサヒロダンススタジオ',branch:'三重'},
-  '4-300':{lKanji:'森田 貴久',lKana:'モリタ タカヒサ',pKanji:'木全 志穂',pKana:'キマタ シホ',school:'アカデミー オブ ダンス.ヨコタ/バンノダンススタジオ',branch:'愛知'},
-  '4-302':{lKanji:'岩田 健司',lKana:'イワタ ケンジ',pKanji:'寺島 裕希',pKana:'テラシマ ユウキ',school:'岩田健司ダンススタジオ/小西雅司ダンススタジオ',branch:'愛知'},
-  '4-303':{lKanji:'山﨑 雅則',lKana:'ヤマザキ マサノリ',pKanji:'河内 知子',pKana:'カワチ トモコ',school:'カワチダンススタジオ',branch:'愛知'},
-  '4-305':{lKanji:'楠本 和嵩',lKana:'クスモト カズタカ',pKanji:'宇瀬 薫',pKana:'ウセ カオル',school:'中川雄太ダンスアカデミー',branch:'愛知'},
-  '4-306':{lKanji:'平柳 諒悟',lKana:'ヒラヤナギ リョウゴ',pKanji:'佐田みづほ',pKana:'サダ ミヅホ',school:'小西雅司ダンススタジオ',branch:'愛知'},
-  '5-300':{lKanji:'伊藤 大輔',lKana:'イトウ ダイスケ',pKanji:'伴 まゆみ',pKana:'バン マユミ',school:'ダンススクールD&M',branch:'大阪'},
-  '5-394':{lKanji:'中田 裕也',lKana:'ナカタ ユウヤ',pKanji:'佐々木真那',pKana:'ササキ マナ',school:'O&Nダンスカンパニー',branch:'大阪'},
-  '5-397':{lKanji:'渡辺 幸司',lKana:'ワタナベ コウジ',pKanji:'市川 由佳',pKana:'イチカワ ユカ',school:'cityダンススクール',branch:'大阪'},
-  '6-100':{lKanji:'中嶋 康人',lKana:'ナカシマ ヤスト',pKanji:'中嶋 藍香',pKana:'ナカシマ アイカ',school:'ダンススタジオ中嶋',branch:'福岡'},
-  '6-148':{lKanji:'平崎 誠',lKana:'ヒラサキ マコト',pKanji:'切手利江子',pKana:'キッテ リエコ',school:'Tokyo渋谷ダンサーズ学院',branch:'九州'},
-  '6-255':{lKanji:'高野 智弥',lKana:'タカノ トモヤ',pKanji:'加藤 七海',pKana:'カトウ ナナミ',school:'DANCE TEAM YOKO',branch:'鹿児島'}
+  '3-529':{lKanji:'鮫口伸一郎',lKana:'サメグチ シンイチロウ',pKanji:'阿部里香子',pKana:'アベ リカコ',school:'鮫口ダンス教室',branch:'東京',pRegP1:'3',pRegP2:'529'},
+  '3-566':{lKanji:'小野 孝明',lKana:'オノ コウメイ',pKanji:'小野恵美織',pKana:'オノ エミリ',school:'小野孝明ダンススクール',branch:'神奈川',pRegP1:'3',pRegP2:'566'},
+  '3-569':{lKanji:'田原 健二',lKana:'タハラ ケンジ',pKanji:'上脇友季湖',pKana:'カミワキ ユキコ',school:'タハラダンススタジオ/ダンス大塚会館',branch:'千葉',pRegP1:'3',pRegP2:'569'},
+  '3-734':{lKanji:'永田 薫',lKana:'ナガタ カオル',pKanji:'飯野さやか',pKana:'イイノ サヤカ',school:'小林ダンススクール',branch:'東京',pRegP1:'3',pRegP2:'734'},
+  '3-749':{lKanji:'松岡 佑紀',lKana:'マツオカ ユウキ',pKanji:'齊藤ひかる',pKana:'サイトウ ヒカル',school:'MATSUOKA DANCE PRODUCTION',branch:'神奈川',pRegP1:'3',pRegP2:'749'},
+  '3-762':{lKanji:'斉藤 達哉',lKana:'サイトウ タツヤ',pKanji:'八木恵里香',pKana:'ヤギ エリカ',school:'武田ダンススクール',branch:'東京',pRegP1:'3',pRegP2:'762'},
+  '3-796':{lKanji:'原 辰瑠',lKana:'ハラ タツル',pKanji:'井上 愛香',pKana:'イノウエ アイカ',school:'タハラダンススタジオ/Y&Mダンスラボ．',branch:'千葉',pRegP1:'3',pRegP2:'796'},
+  '3-813':{lKanji:'畠山 貴弘',lKana:'ハタケヤマ タカヒロ',pKanji:'高橋 美樹',pKana:'タカハシ ミキ',school:'小浜ダンスプラザ',branch:'神奈川',pRegP1:'3',pRegP2:'813'},
+  '3-833':{lKanji:'寺門 駿',lKana:'テラカド シュン',pKanji:'寺門 彩香',pKana:'テラカド アヤカ',school:'KM Dance Arts',branch:'東京',pRegP1:'3',pRegP2:'833'},
+  '3-841':{lKanji:'森安 略夫',lKana:'モリヤス ノリオ',pKanji:'竹澤 陽子',pKana:'タケザワ ヨウコ',school:'ASダンススタジオ',branch:'東京',pRegP1:'3',pRegP2:'841'},
+  '3-844':{lKanji:'浜崎 裕章',lKana:'ハマサキ ヒロフミ',pKanji:'川澄 清香',pKana:'カワスミ サヤカ',school:'チョイス＆双葉会ダンススタジオ/ニシダダンススタジオ',branch:'東京',pRegP1:'3',pRegP2:'844'},
+  '3-854':{lKanji:'宮原明希光',lKana:'ミヤハラ アキミツ',pKanji:'松下 梨沙',pKana:'マツシタ リサ',school:'Studio Li',branch:'東京',pRegP1:'3',pRegP2:'854'},
+  '3-861':{lKanji:'滝澤 聖也',lKana:'タキザワ セイヤ',pKanji:'前田 馨',pKana:'マエダ カオル',school:'ダンススタジオコネクト橘/TDSサード・ダンススクール',branch:'東京',pRegP1:'3',pRegP2:'861'},
+  '3-862':{lKanji:'石川 敬之',lKana:'イシカワ ノリユキ',pKanji:'奥 恵弥',pKana:'オク アヤ',school:'ﾁｮｲｽ＆双葉会ダンススタジオ',branch:'東京',pRegP1:'3',pRegP2:'862'},
+  '3-869':{lKanji:'田中慎一朗',lKana:'タナカ シンイチロウ',pKanji:'田中 あや',pKana:'タナカ アヤ',school:'Fontana Dance Studio/ﾀﾞﾝｽｽﾀｼﾞｵｺﾈｸﾄ橘',branch:'東京',pRegP1:'3',pRegP2:'869'},
+  '3-870':{lKanji:'東海林祐介',lKana:'トウカイリン ユウスケ',pKanji:'立花 悠',pKana:'タチバナ ハルカ',school:'Tomorrow  Dance Club',branch:'東京',pRegP1:'3',pRegP2:'870'},
+  '3-871':{lKanji:'工藤 正俊',lKana:'クドウ マサトシ',pKanji:'李 夢希',pKana:'リ ムキ',school:'KM Dance Arts',branch:'東京',pRegP1:'3',pRegP2:'871'},
+  '3-873':{lKanji:'中野 颯斗',lKana:'ナカノ ハヤト',pKanji:'DAGA',pKana:'ダガ',school:'チョイス＆双葉会ダンススタジオ',branch:'東京',pRegP1:'3',pRegP2:'873'},
+  '4-150':{lKanji:'阪野 清人',lKana:'バンノ キヨト',pKanji:'阪野 綾',pKana:'バンノ アヤ',school:'バンノダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'150'},
+  '4-193':{lKanji:'柴田 真希',lKana:'シバタ マサキ',pKanji:'柴田 綾子',pKana:'シバタ アヤコ',school:'ナゴヤダンスアカデミー',branch:'愛知',pRegP1:'4',pRegP2:'193'},
+  '4-206':{lKanji:'伊藤 圭一',lKana:'イトウ ケイイチ',pKanji:'廣瀬 久美',pKana:'ヒロセ クミ',school:'リフレッシュダンススタジオミエ',branch:'三重',pRegP1:'4',pRegP2:'206'},
+  '4-223':{lKanji:'安藤 裕一',lKana:'アンドウ ユウイチ',pKanji:'河内 芳江',pKana:'カワチ ヨシエ',school:'カワチダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'223'},
+  '4-233':{lKanji:'新海 晋也',lKana:'シンカイ シンヤ',pKanji:'新海きみ子',pKana:'シンカイ キミコ',school:'新海ダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'233'},
+  '4-240':{lKanji:'野田 幹也',lKana:'ノダ ミキヤ',pKanji:'広瀬 真名',pKana:'ヒロセ マナ',school:'ナゴヤダンスアカデミー',branch:'愛知',pRegP1:'4',pRegP2:'240'},
+  '4-258':{lKanji:'中野 雅章',lKana:'ナカノ マサアキ',pKanji:'中野由美恵',pKana:'ナカノ ユミエ',school:'中野まさあきダンススタジオ',branch:'三重',pRegP1:'4',pRegP2:'258'},
+  '4-260':{lKanji:'村上 知哉',lKana:'ムラカミ トモヤ',pKanji:'村田 佳澄',pKana:'ムラタ カスミ',school:'サワダマサヒロダンススタジオ',branch:'三重',pRegP1:'4',pRegP2:'260'},
+  '4-262':{lKanji:'勝川 佳和',lKana:'カツカワ ヨシカズ',pKanji:'清水佳奈子',pKana:'シミズ カナコ',school:'バンノダンススタジオ／オザキダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'262'},
+  '4-270':{lKanji:'竹内 大祐',lKana:'タケウチ ダイスケ',pKanji:'竹内 桃子',pKana:'タケウチ モモコ',school:'Dance&Motion TAKEUCHI',branch:'愛知',pRegP1:'4',pRegP2:'270'},
+  '4-273':{lKanji:'勝野 出',lKana:'カツノ イヅル',pKanji:'浅海 愛',pKana:'アサウミ アイ',school:'DANCE FUSION',branch:'愛知',pRegP1:'4',pRegP2:'273'},
+  '4-276':{lKanji:'村澤 俊也',lKana:'ムラサワ シュンヤ',pKanji:'鈴木 伶奈',pKana:'スズキ レナ',school:'梅原ダンススクール',branch:'愛知',pRegP1:'4',pRegP2:'276'},
+  '4-277':{lKanji:'金原 亮司',lKana:'キンパラ リョウジ',pKanji:'永原 由貴',pKana:'ナガハラ ユキ',school:'小西雅司ダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'277'},
+  '4-279':{lKanji:'柴山 和樹',lKana:'シバヤマ カズキ',pKanji:'平岩 英里',pKana:'ヒライワ エリ',school:'DANCE STUDIO B&G',branch:'愛知',pRegP1:'4',pRegP2:'279'},
+  '4-283':{lKanji:'新美 一輝',lKana:'ニイミ カズキ',pKanji:'山口ひかり',pKana:'ヤマグチ ヒカリ',school:'サトウダンススクール',branch:'愛知',pRegP1:'4',pRegP2:'283'},
+  '4-286':{lKanji:'岡 俊宏',lKana:'オカ トシヒロ',pKanji:'岡 瑞紀',pKana:'オカ ミズキ',school:'DANCE FUSION',branch:'愛知',pRegP1:'4',pRegP2:'286'},
+  '4-289':{lKanji:'松永 卓也',lKana:'マツナガ タクヤ',pKanji:'松永由莉枝',pKana:'マツナガ ユリエ',school:'新海ダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'289'},
+  '4-290':{lKanji:'太田 雅士',lKana:'オオタ マサシ',pKanji:'太田 薫',pKana:'オオタ カオル',school:'ニシダダンススタジオ',branch:'愛知',pRegP1:'',pRegP2:''},
+  '4-291':{lKanji:'岩本 憲幸',lKana:'イワモト ノリユキ',pKanji:'稲垣はる美',pKana:'イナガキ ハルミ',school:'ナゴヤダンスアカデミー',branch:'愛知',pRegP1:'4',pRegP2:'291'},
+  '4-292':{lKanji:'小森 康裕',lKana:'コモリ ヤスヒロ',pKanji:'滝川 和美',pKana:'タキカワ カズミ',school:'サトウダンススクール',branch:'愛知',pRegP1:'4',pRegP2:'292'},
+  '4-297':{lKanji:'森川 真',lKana:'モリカワ マコト',pKanji:'倉岡 美生',pKana:'クラオカ ミウ',school:'サワダマサヒロダンススタジオ',branch:'三重',pRegP1:'4',pRegP2:'297'},
+  '4-300':{lKanji:'森田 貴久',lKana:'モリタ タカヒサ',pKanji:'木全 志穂',pKana:'キマタ シホ',school:'アカデミー オブ ダンス．ヨコタ/バンノダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'300'},
+  '4-302':{lKanji:'岩田 健司',lKana:'イワタ ケンジ',pKanji:'寺島 裕希',pKana:'テラシマ ユウキ',school:'岩田健司ダンススタジオ／小西雅司ダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'302'},
+  '4-303':{lKanji:'山﨑 雅則',lKana:'ヤマザキ マサノリ',pKanji:'河内 知子',pKana:'カワチ トモコ',school:'カワチダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'303'},
+  '4-305':{lKanji:'楠本 和嵩',lKana:'クスモト カズタカ',pKanji:'宇瀬 薫',pKana:'ウセ カオル',school:'中川雄太ダンスアカデミー',branch:'愛知',pRegP1:'4',pRegP2:'305'},
+  '4-306':{lKanji:'平柳 諒悟',lKana:'ヒラヤナギ リョウゴ',pKanji:'佐田みづほ',pKana:'サダ ミヅホ',school:'小西雅司ダンススタジオ',branch:'愛知',pRegP1:'4',pRegP2:'306'},
+  '5-300':{lKanji:'伊藤 大輔',lKana:'イトウ ダイスケ',pKanji:'伴 まゆみ',pKana:'バン マユミ',school:'ダンススクールD&M',branch:'大阪',pRegP1:'5',pRegP2:'300'},
+  '5-394':{lKanji:'中田 裕也',lKana:'ナカタ ユウヤ',pKanji:'佐々木真那',pKana:'ササキ マナ',school:'Ｏ&Ｎダンスカンパニー',branch:'大阪',pRegP1:'5',pRegP2:'394'},
+  '5-397':{lKanji:'渡辺 幸司',lKana:'ワタナベ コウジ',pKanji:'市川 由佳',pKana:'イチカワ ユカ',school:'cityダンススクール',branch:'大阪',pRegP1:'5',pRegP2:'397'},
+  '6-100':{lKanji:'中嶋 康人',lKana:'ナカシマ ヤスト',pKanji:'中嶋 藍香',pKana:'ナカシマ アイカ',school:'ダンススタジオ中嶋',branch:'福岡',pRegP1:'6',pRegP2:'100'},
+  '6-148':{lKanji:'平崎 誠',lKana:'ヒラサキ マコト',pKanji:'切手利江子',pKana:'キッテ リエコ',school:'Tokyo渋谷ダンサーズ学院',branch:'九州',pRegP1:'6',pRegP2:'148'},
+  '6-255':{lKanji:'高野 智弥',lKana:'タカノ トモヤ',pKanji:'加藤 七海',pKana:'カトウ ナナミ',school:'DANCE TEAM YOKO',branch:'鹿児島',pRegP1:'6',pRegP2:'255'},
+  'X-303':{lKanji:'竹中 幸治',lKana:'タケナカ コウジ',pKanji:'西川 悦子',pKana:'ニシカワ エツコ',school:'DS Nagoya',branch:'愛知',pRegP1:'',pRegP2:''},
 };
 
 // ===== 競技データ（令和8年2月1日大会）=====
@@ -725,6 +726,13 @@ function applyPlayerData(key,role){
   // パートナー情報
   document.getElementById('partnerKana').value=data.pKana;
   document.getElementById('partnerKanji').value=data.pKanji;
+  // パートナー登録番号（データがある場合のみ入力）
+  if(data.pRegP1){
+    document.getElementById('regPartnerP1').value=data.pRegP1;
+    document.getElementById('regPartnerP2').value=data.pRegP2;
+    markAutoFilled('regPartnerP1');
+    markAutoFilled('regPartnerP2');
+  }
   // 共通：所属教室・支局
   document.getElementById('school').value=data.school;
   document.getElementById('branch').value=data.branch;
@@ -1102,4 +1110,4 @@ async function submitForm(){
 }
 </script>
 </body>
-</html>
+</ht
